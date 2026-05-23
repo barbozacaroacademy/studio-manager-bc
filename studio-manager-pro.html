@@ -1,0 +1,2196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Manager Pro — Barboza Caro</title>
+<style>
+  :root {
+    --bg: #F9F6F1;
+    --bg2: #FFFFFF;
+    --bg3: #F2EDE6;
+    --bg4: #EAE4DB;
+    --accent: #c9a96e;
+    --accent-dim: #a8884f;
+    --accent-glow: rgba(201,169,110,0.15);
+    --green: #313030;
+    --green-dim: #1a1a1a;
+    --text: #313030;
+    --text2: #6B5E4E;
+    --text3: #A8967E;
+    --border: #DDD6CC;
+    --border2: #C8BFB3;
+    --danger: #C0392B;
+    --warning: #B07A2A;
+    --radius: 8px;
+    --radius-lg: 12px;
+    --shadow: 0 4px 24px rgba(49,48,48,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* ─── HEADER ─────────────────────────────────── */
+  header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -1px;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+
+  .logo-name {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text);
+  }
+
+  .logo-sub {
+    font-size: 10px;
+    color: var(--text2);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .badge {
+    background: var(--accent-glow);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+
+  /* ─── TABS ───────────────────────────────────── */
+  .tabs-wrapper {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    display: flex;
+    gap: 0;
+  }
+
+  .tab-btn {
+    padding: 14px 24px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text2);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+
+  .tab-btn:hover { color: var(--text); }
+
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .tab-icon {
+    font-size: 16px;
+  }
+
+  /* ─── MAIN LAYOUT ────────────────────────────── */
+  main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 32px 64px;
+  }
+
+  .module { display: none; }
+  .module.active { display: block; }
+
+  /* ─── SECTION HEADER ─────────────────────────── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::before {
+    content: '';
+    width: 3px;
+    height: 22px;
+    background: var(--accent);
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  /* ─── CARD ───────────────────────────────────── */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+
+  .card-header:hover { background: var(--bg4); }
+
+  .card-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-title-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  .card-toggle {
+    color: var(--text3);
+    font-size: 12px;
+    transition: transform 0.2s;
+  }
+
+  .card-body {
+    padding: 24px 20px;
+  }
+
+  .card-body.collapsed { display: none; }
+
+  /* ─── FORM GRID ──────────────────────────────── */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .form-grid.cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-grid.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-group.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .form-group.span-2 {
+    grid-column: span 2;
+  }
+
+  label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--text2);
+  }
+
+  label .required {
+    color: var(--accent);
+    margin-left: 2px;
+  }
+
+  input[type="text"],
+  input[type="url"],
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="number"],
+  select,
+  textarea {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-size: 13px;
+    font-family: inherit;
+    padding: 9px 12px;
+    width: 100%;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  input[type="text"]:focus,
+  input[type="url"]:focus,
+  input[type="date"]:focus,
+  input[type="datetime-local"]:focus,
+  input[type="number"]:focus,
+  select:focus,
+  textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23A09890'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+    cursor: pointer;
+  }
+
+  select option {
+    background: var(--bg3);
+    color: var(--text);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 72px;
+  }
+
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0 2px;
+  }
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .checkbox-label {
+    font-size: 13px;
+    color: var(--text);
+    cursor: pointer;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+
+  /* ─── FORM ACTIONS ───────────────────────────── */
+  .form-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+  }
+  .btn-primary:hover { background: var(--accent-dim); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(212,83,126,0.3); }
+
+  .btn-secondary {
+    background: var(--bg3);
+    color: var(--text2);
+    border: 1px solid var(--border2);
+  }
+  .btn-secondary:hover { background: var(--bg4); color: var(--text); }
+
+  .btn-success {
+    background: var(--green);
+    color: white;
+  }
+  .btn-success:hover { background: var(--green-dim); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(29,158,117,0.3); }
+
+  .btn-danger {
+    background: transparent;
+    color: var(--danger);
+    border: 1px solid var(--danger);
+  }
+  .btn-danger:hover { background: rgba(192,57,43,0.1); }
+
+  .btn-sm {
+    padding: 5px 10px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .btn-icon {
+    padding: 6px;
+    border-radius: 6px;
+  }
+
+  /* ─── TABLE ──────────────────────────────────── */
+  .table-wrapper {
+    overflow-x: auto;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+  }
+
+  thead {
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+  }
+
+  th {
+    padding: 11px 14px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text2);
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+  tbody tr:hover { background: var(--accent-glow); cursor: pointer; }
+
+  td {
+    padding: 11px 14px;
+    font-size: 13px;
+    color: var(--text);
+    vertical-align: middle;
+  }
+
+  td.muted { color: var(--text2); font-size: 12px; }
+
+  .td-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  /* ─── STATUS BADGES ──────────────────────────── */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .badge-active { background: rgba(49,48,48,0.08); color: var(--text); border: 1px solid rgba(49,48,48,0.2); }
+  .badge-inactive { background: rgba(168,150,126,0.12); color: var(--text2); border: 1px solid var(--border2); }
+  .badge-pending { background: rgba(176,122,42,0.12); color: var(--warning); border: 1px solid rgba(176,122,42,0.3); }
+  .badge-confirmed { background: rgba(201,169,110,0.15); color: var(--accent-dim); border: 1px solid rgba(201,169,110,0.4); }
+
+  /* ─── TABLE TOOLBAR ──────────────────────────── */
+  .table-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .table-count {
+    font-size: 12px;
+    color: var(--text2);
+  }
+
+  .table-count span {
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 7px 12px;
+    min-width: 200px;
+  }
+
+  .search-box input {
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    width: 100%;
+    padding: 0;
+  }
+
+  .search-icon { color: var(--text3); font-size: 13px; }
+
+  /* ─── EMPTY STATE ────────────────────────────── */
+  .empty-state {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--text3);
+  }
+
+  .empty-state-icon { font-size: 36px; margin-bottom: 12px; }
+  .empty-state-text { font-size: 14px; color: var(--text2); }
+  .empty-state-sub { font-size: 12px; margin-top: 4px; }
+
+  /* ─── MODAL ──────────────────────────────────── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: var(--shadow);
+  }
+
+  .modal h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .modal p { color: var(--text2); font-size: 13px; line-height: 1.6; }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: flex-end;
+  }
+
+  /* ─── TOAST ──────────────────────────────────── */
+  #toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+  }
+
+  .toast-item {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--text);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideIn 0.3s ease;
+    max-width: 320px;
+  }
+
+  .toast-item.success { border-left: 3px solid var(--green); }
+  .toast-item.error { border-left: 3px solid var(--danger); }
+  .toast-item.info { border-left: 3px solid var(--accent); }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ─── DIVIDER ────────────────────────────────── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 20px 0;
+  }
+
+  /* ─── EDITING INDICATOR ──────────────────────── */
+  .editing-bar {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: rgba(212,83,126,0.08);
+    border: 1px solid rgba(212,83,126,0.25);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .editing-bar.visible { display: flex; }
+
+  /* ─── ALERTAS ────────────────────────────────── */
+  .alertas-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .summary-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .summary-card-value {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .summary-card-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text2);
+  }
+
+  .summary-card.urgente  { border-left: 3px solid #B85C2A; }
+  .summary-card.proximo  { border-left: 3px solid var(--warning); }
+  .summary-card.ventana  { border-left: 3px solid var(--accent); }
+  .summary-card.total    { border-left: 3px solid var(--text); }
+
+  .summary-card.urgente  .summary-card-value { color: #B85C2A; }
+  .summary-card.proximo  .summary-card-value { color: var(--warning); }
+  .summary-card.ventana  .summary-card-value { color: var(--accent); }
+  .summary-card.total    .summary-card-value { color: var(--text); }
+
+  /* Alert cards grid */
+  .alertas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+
+  .alerta-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .alerta-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+
+  .alerta-card-top {
+    padding: 16px 18px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .alerta-nombre {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .alerta-servicio {
+    font-size: 11px;
+    color: var(--text2);
+    margin-top: 3px;
+  }
+
+  .dias-badge {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
+    font-weight: 800;
+  }
+
+  .dias-badge .dias-num {
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .dias-badge .dias-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  /* Urgencia levels */
+  .nivel-critico   { background: rgba(184,92,42,0.12);  border: 1px solid rgba(184,92,42,0.35);  color: #B85C2A; }
+  .nivel-urgente   { background: rgba(176,122,42,0.12); border: 1px solid rgba(176,122,42,0.35); color: var(--warning); }
+  .nivel-ventana   { background: rgba(201,169,110,0.15); border: 1px solid rgba(201,169,110,0.4); color: var(--accent); }
+
+  .alerta-card.nivel-critico { border-top: 3px solid #B85C2A; }
+  .alerta-card.nivel-urgente { border-top: 3px solid var(--warning); }
+  .alerta-card.nivel-ventana { border-top: 3px solid var(--accent); }
+
+  .alerta-card-body {
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .alerta-info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+  }
+
+  .alerta-info-key {
+    color: var(--text2);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .alerta-info-val {
+    color: var(--text);
+    text-align: right;
+  }
+
+  .alerta-card-footer {
+    padding: 12px 18px;
+    background: var(--bg3);
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .btn-whatsapp {
+    background: #1a9e50;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: var(--radius);
+    font-size: 12px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    text-decoration: none;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .btn-whatsapp:hover { background: #157a3e; transform: translateY(-1px); }
+
+  .btn-ver-cita {
+    background: var(--bg4);
+    color: var(--text2);
+    border: 1px solid var(--border2);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: var(--radius);
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .btn-ver-cita:hover { background: var(--bg3); color: var(--text); }
+
+  /* Filtro de urgencia */
+  .filtro-alertas {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .filtro-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 1px solid var(--border2);
+    background: var(--bg3);
+    color: var(--text2);
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .filtro-btn:hover { background: var(--bg4); color: var(--text); }
+  .filtro-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+
+  /* Dot badge en tab */
+  .tab-alert-dot {
+    display: none;
+    background: #B85C2A;
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    padding: 0 5px;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .tab-alert-dot.visible { display: inline-flex; }
+
+  /* ─── RESPONSIVE ─────────────────────────────── */
+  @media (max-width: 900px) {
+    main { padding: 20px 16px 48px; }
+    header { padding: 0 16px; }
+    .tabs-wrapper { padding: 0 16px; overflow-x: auto; }
+    .form-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+    .form-grid.cols-2 { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .form-grid.cols-3 { grid-template-columns: 1fr; }
+    .logo-sub { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════ HEADER -->
+<header>
+  <div class="logo">
+    <div class="logo-icon">BC</div>
+    <div class="logo-text">
+      <span class="logo-name">BARBOZA CARO</span>
+      <span class="logo-sub">Studio Manager Pro</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="badge">v1.0</span>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════ TABS -->
+<div class="tabs-wrapper">
+  <button class="tab-btn active" onclick="switchTab('clientas')" id="tab-clientas">
+    <span class="tab-icon">👤</span> Base de Clientas
+  </button>
+  <button class="tab-btn" onclick="switchTab('citas')" id="tab-citas">
+    <span class="tab-icon">📋</span> Fichas Técnicas de Citas
+  </button>
+  <button class="tab-btn" onclick="switchTab('alertas')" id="tab-alertas">
+    <span class="tab-icon">🔔</span> Recordatorios
+    <span class="tab-alert-dot" id="alert-dot">0</span>
+  </button>
+</div>
+
+<!-- ═══════════════════════════════════════════════ MAIN -->
+<main>
+
+  <!-- ──────────────────────── MÓDULO 1: CLIENTAS -->
+  <div class="module active" id="module-clientas">
+
+    <div class="section-header">
+      <h2 class="section-title">Base de Clientas</h2>
+      <button class="btn btn-success" onclick="exportCSV('clientas')">
+        ⬇ Exportar CSV
+      </button>
+    </div>
+
+    <!-- EDITING BAR -->
+    <div class="editing-bar" id="editing-bar-clientas">
+      ✏️ Editando registro — <span id="editing-name-clientas"></span>
+      <button class="btn btn-secondary btn-sm" onclick="cancelEdit('clientas')" style="margin-left:auto">Cancelar</button>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="card">
+      <div class="card-header" onclick="toggleCard('form-clientas')">
+        <span class="card-title"><span class="card-title-dot"></span>Formulario de Clienta</span>
+        <span class="card-toggle" id="toggle-form-clientas">▲</span>
+      </div>
+      <div class="card-body" id="form-clientas">
+
+        <!-- Identificación -->
+        <div class="card-title" style="margin-bottom:16px"><span class="card-title-dot"></span>Datos de Identificación</div>
+        <div class="form-grid cols-3">
+          <div class="form-group">
+            <label>Nombre Completo <span class="required">*</span></label>
+            <input type="text" id="c-nombre" placeholder="Ej: María García López">
+          </div>
+          <div class="form-group">
+            <label>Teléfono / WhatsApp</label>
+            <input type="text" id="c-telefono" placeholder="+57 300 000 0000">
+          </div>
+          <div class="form-group">
+            <label>Instagram</label>
+            <input type="text" id="c-instagram" placeholder="@usuario">
+          </div>
+          <div class="form-group">
+            <label>Fecha Primera Cita</label>
+            <input type="date" id="c-fecha-primera">
+          </div>
+          <div class="form-group">
+            <label style="opacity:0">.</label>
+            <div class="checkbox-group">
+              <input type="checkbox" id="c-activa" checked>
+              <label class="checkbox-label" for="c-activa">¿Clienta activa?</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Salud -->
+        <div class="card-title" style="margin-bottom:16px"><span class="card-title-dot"></span>Salud y Precauciones</div>
+        <div class="form-grid cols-3">
+          <div class="form-group">
+            <label>Alergias Conocidas</label>
+            <input type="text" id="c-alergias" placeholder="Ej: látex, colas adhesivas...">
+          </div>
+          <div class="form-group">
+            <label>Condición Ocular Especial</label>
+            <select id="c-condicion">
+              <option value="Ninguna">Ninguna</option>
+              <option value="Blefaritis">Blefaritis</option>
+              <option value="Ojo seco">Ojo seco</option>
+              <option value="Ptosis">Ptosis</option>
+              <option value="Otra">Otra</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label style="opacity:0">.</label>
+            <div class="checkbox-group">
+              <input type="checkbox" id="c-lentes">
+              <label class="checkbox-label" for="c-lentes">Usa lentes de contacto</label>
+            </div>
+          </div>
+          <div class="form-group full-width">
+            <label>Notas de Salud</label>
+            <textarea id="c-notas-salud" placeholder="Observaciones médicas relevantes..."></textarea>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-primary" onclick="saveClienta()">💾 Guardar Clienta</button>
+          <button class="btn btn-secondary" onclick="clearForm('clientas')">✕ Limpiar</button>
+        </div>
+
+      </div><!-- /card-body -->
+    </div><!-- /card -->
+
+    <!-- TABLA -->
+    <div class="table-toolbar">
+      <div class="table-count">Total: <span id="count-clientas">0</span> clientas</div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-clientas" placeholder="Buscar clienta..." oninput="renderClientasTable()">
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table id="table-clientas">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Instagram</th>
+            <th>Primera Cita</th>
+            <th>Condición Ocular</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-clientas">
+          <tr><td colspan="7"><div class="empty-state"><div class="empty-state-icon">👤</div><div class="empty-state-text">Aún no hay clientas registradas</div><div class="empty-state-sub">Completa el formulario arriba para agregar la primera</div></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <!-- /módulo 1 -->
+
+
+  <!-- ──────────────────────── MÓDULO 2: CITAS -->
+  <div class="module" id="module-citas">
+
+    <div class="section-header">
+      <h2 class="section-title">Fichas Técnicas de Citas</h2>
+      <button class="btn btn-success" onclick="exportCSV('citas')">
+        ⬇ Exportar CSV
+      </button>
+    </div>
+
+    <!-- EDITING BAR -->
+    <div class="editing-bar" id="editing-bar-citas">
+      ✏️ Editando registro — <span id="editing-name-citas"></span>
+      <button class="btn btn-secondary btn-sm" onclick="cancelEdit('citas')" style="margin-left:auto">Cancelar</button>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="card">
+      <div class="card-header" onclick="toggleCard('form-citas')">
+        <span class="card-title"><span class="card-title-dot"></span>Formulario de Cita</span>
+        <span class="card-toggle" id="toggle-form-citas">▲</span>
+      </div>
+      <div class="card-body" id="form-citas">
+
+        <!-- Identificación de cita -->
+        <div class="card-title" style="margin-bottom:16px"><span class="card-title-dot"></span>Identificación de la Cita</div>
+        <div class="form-grid cols-3">
+          <div class="form-group">
+            <label>ID de Cita</label>
+            <input type="text" id="a-id" placeholder="Ej: María García – 2026-01-15">
+          </div>
+          <div class="form-group">
+            <label>Clienta <span class="required">*</span></label>
+            <select id="a-clienta">
+              <option value="">— Seleccionar clienta —</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Fecha y Hora de la Cita</label>
+            <input type="datetime-local" id="a-fecha">
+          </div>
+          <div class="form-group">
+            <label>Tipo de Servicio</label>
+            <select id="a-servicio">
+              <option value="Juego completo">Juego completo</option>
+              <option value="Retoque">Retoque</option>
+              <option value="Retiro">Retiro</option>
+              <option value="Conversión de técnica">Conversión de técnica</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Monto Cobrado</label>
+            <input type="number" id="a-monto" placeholder="0" min="0" step="0.01">
+          </div>
+          <div class="form-group">
+            <label>Método de Pago</label>
+            <select id="a-pago">
+              <option value="Efectivo">Efectivo</option>
+              <option value="Transferencia">Transferencia</option>
+              <option value="Nequi">Nequi</option>
+              <option value="Binance">Binance</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Diagnóstico dirección -->
+        <div class="card-title" style="margin-bottom:16px"><span class="card-title-dot"></span>Diagnóstico — Dirección de Pestañas Naturales</div>
+        <div class="form-grid cols-3">
+          <div class="form-group">
+            <label>Dir. Sector Lagrimal</label>
+            <select id="a-dir-lagrimal">
+              <option value="Hacia arriba">Hacia arriba</option>
+              <option value="Horizontal">Horizontal</option>
+              <option value="Hacia abajo">Hacia abajo</option>
+              <option value="Cruzadas">Cruzadas</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Dir. Sector Centro</label>
+            <select id="a-dir-centro">
+              <option value="Hacia arriba">Hacia arriba</option>
+              <option value="Horizontal">Horizontal</option>
+              <option value="Hacia abajo">Hacia abajo</option>
+              <option value="Cruzadas">Cruzadas</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Dir. Sector Comisura</label>
+            <select id="a-dir-comisura">
+              <option value="Hacia arriba">Hacia arriba</option>
+              <option value="Horizontal">Horizontal</option>
+              <option value="Hacia abajo">Hacia abajo</option>
+              <option value="Cruzadas">Cruzadas</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Alineación y Eje</label>
+            <select id="a-alineacion">
+              <option value="Neutro">Neutro</option>
+              <option value="Ascendente">Ascendente</option>
+              <option value="Descendente">Descendente</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Diagnóstico morfología -->
+        <div class="card-title" style="margin-bottom:16px"><span class="card-title-dot"></span>Diagnóstico — Morfología Ocular</div>
+        <div class="form-grid cols-3">
+          <div class="form-group">
+            <label>Espacio Intraocular</label>
+            <select id="a-espacio">
+              <option value="Proporcionado">Proporcionado</option>
+              <option value="Juntos">Juntos</option>
+              <option value="Separados">Separados</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Forma del Ojo</label>
+            <select id="a-forma-ojo">
+              <option value="Almendrado">Almendrado</option>
+              <option value="Redondo">Redondo</option>
+              <option value="Asiático">Asiático</option>
+              <option value="Pequeño">Pequeño</option>
+              <option value="Hundido">Hundido</option>
+              <option value="Prominente">Prominente</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tipo de Párpado</label>
+            <select id="a-parpado">
+              <option value="Normal">Normal</option>
+              <option value="Encapotado">Encapotado</option>
+              <option value="Caído">Caído</option>
+              <option value="Ancho">Ancho</option>
+              <option value="Monolid">Monolid</option>
+              <option value="Hundido">Hundido</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Apertura del Párpado</label>
+            <select id="a-apertura">
+              <option value="Normal">Normal</option>
+              <option value="Pequeña">Pequeña</option>
+              <option value="Grande">Grande</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label style="opacity:0">.</label>
+            <div class="checkbox-group">
+              <input type="checkbox" id="a-asimetria">
+              <label class="checkbox-label" for="a-asimetria">Asimetría presente</label>
+            </div>
+          </div>
+          <div class="form-group full-width form-grid cols-2" style="display:grid">
+            <div class="form-group">
+              <label>Notas Ojo Izquierdo</label>
+              <textarea id="a-notas-izq" placeholder="Observaciones ojo izquierdo..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Notas Ojo Derecho</label>
+              <textarea id="a-notas-der" placeholder="Observaciones ojo derecho..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Diseño aplicado -->
+        <div class="card-title" style="margin-bottom:16px"><span class="card-title-dot"></span>Diseño Aplicado</div>
+        <div class="form-grid cols-3">
+          <div class="form-group">
+            <label>Efecto / Mapa Elegido</label>
+            <select id="a-efecto">
+              <option value="Natural">Natural</option>
+              <option value="Cat eye">Cat eye</option>
+              <option value="Doll eye">Doll eye</option>
+              <option value="Fox eye">Fox eye</option>
+              <option value="Squirrel">Squirrel</option>
+              <option value="Wet look">Wet look</option>
+              <option value="Personalizado">Personalizado</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Curvatura</label>
+            <select id="a-curvatura">
+              <option value="C">C</option>
+              <option value="CC">CC</option>
+              <option value="D">D</option>
+              <option value="L">L</option>
+              <option value="LC">LC</option>
+              <option value="M">M</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Grosor / Volumen</label>
+            <select id="a-grosor">
+              <option value="0.03">0.03</option>
+              <option value="0.05">0.05</option>
+              <option value="0.07">0.07</option>
+              <option value="0.10">0.10</option>
+              <option value="Mix">Mix</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Largo Zona Lagrimal (mm)</label>
+            <input type="number" id="a-largo-lagrimal" placeholder="0" min="0" max="30" step="0.5">
+          </div>
+          <div class="form-group">
+            <label>Largo Zona Centro (mm)</label>
+            <input type="number" id="a-largo-centro" placeholder="0" min="0" max="30" step="0.5">
+          </div>
+          <div class="form-group">
+            <label>Largo Zona Comisura (mm)</label>
+            <input type="number" id="a-largo-comisura" placeholder="0" min="0" max="30" step="0.5">
+          </div>
+          <div class="form-group">
+            <label>Técnica Aplicada</label>
+            <select id="a-tecnica">
+              <option value="Pelo a pelo">Pelo a pelo</option>
+              <option value="Volumen ruso">Volumen ruso</option>
+              <option value="Volumen mega">Volumen mega</option>
+              <option value="Híbrido">Híbrido</option>
+              <option value="Wet look">Wet look</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Material / Marca Usada</label>
+            <input type="text" id="a-material" placeholder="Ej: Neicha, Lash Box...">
+          </div>
+          <div class="form-group full-width">
+            <label>Observaciones del Diseño</label>
+            <textarea id="a-obs-diseno" placeholder="Notas sobre el diseño, ajustes, decisiones..."></textarea>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Registro visual -->
+        <div class="card-title" style="margin-bottom:16px"><span class="card-title-dot"></span>Registro Visual</div>
+        <div class="form-grid cols-3">
+          <div class="form-group">
+            <label>Foto Antes (URL Google Drive)</label>
+            <input type="url" id="a-foto-antes" placeholder="https://drive.google.com/...">
+          </div>
+          <div class="form-group">
+            <label>Foto Después (URL Google Drive)</label>
+            <input type="url" id="a-foto-despues" placeholder="https://drive.google.com/...">
+          </div>
+          <div class="form-group">
+            <label style="opacity:0">.</label>
+            <div class="checkbox-group">
+              <input type="checkbox" id="a-autoriza">
+              <label class="checkbox-label" for="a-autoriza">Autoriza publicación</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Seguimiento -->
+        <div class="card-title" style="margin-bottom:16px"><span class="card-title-dot"></span>Seguimiento Post-Cita</div>
+        <div class="form-grid cols-3">
+          <div class="form-group">
+            <label>Fecha Próximo Retoque</label>
+            <input type="date" id="a-prox-retoque">
+          </div>
+          <div class="form-group">
+            <label>Estado del Retoque</label>
+            <select id="a-estado-retoque">
+              <option value="Pendiente">Pendiente</option>
+              <option value="Contactada">Contactada</option>
+              <option value="Confirmada">Confirmada</option>
+              <option value="Reagendada">Reagendada</option>
+              <option value="No volvió">No volvió</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Satisfacción de la Clienta</label>
+            <select id="a-satisfaccion">
+              <option value="Muy satisfecha">Muy satisfecha</option>
+              <option value="Satisfecha">Satisfecha</option>
+              <option value="Con observaciones">Con observaciones</option>
+              <option value="Insatisfecha">Insatisfecha</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-primary" onclick="saveCita()">💾 Guardar Cita</button>
+          <button class="btn btn-secondary" onclick="clearForm('citas')">✕ Limpiar</button>
+        </div>
+
+      </div><!-- /card-body -->
+    </div><!-- /card -->
+
+    <!-- TABLA -->
+    <div class="table-toolbar">
+      <div class="table-count">Total: <span id="count-citas">0</span> citas</div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-citas" placeholder="Buscar cita..." oninput="renderCitasTable()">
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table id="table-citas">
+        <thead>
+          <tr>
+            <th>Clienta</th>
+            <th>Fecha Cita</th>
+            <th>Servicio</th>
+            <th>Técnica</th>
+            <th>Efecto</th>
+            <th>Monto</th>
+            <th>Próx. Retoque</th>
+            <th>Estado</th>
+            <th>Satisfacción</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-citas">
+          <tr><td colspan="10"><div class="empty-state"><div class="empty-state-icon">📋</div><div class="empty-state-text">Aún no hay citas registradas</div><div class="empty-state-sub">Completa el formulario arriba para agregar la primera</div></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <!-- /módulo 2 -->
+
+
+  <!-- ──────────────────────── MÓDULO 3: ALERTAS -->
+  <div class="module" id="module-alertas">
+
+    <div class="section-header">
+      <h2 class="section-title">Panel de Recordatorios</h2>
+      <button class="btn btn-secondary" onclick="renderAlertas()">↺ Actualizar</button>
+    </div>
+
+    <!-- Resumen numérico -->
+    <div class="alertas-summary" id="alertas-summary"></div>
+
+    <!-- Filtros -->
+    <div class="filtro-alertas">
+      <button class="filtro-btn active" onclick="filtrarAlertas('todos')" id="filtro-todos">Todas</button>
+      <button class="filtro-btn" onclick="filtrarAlertas('critico')" id="filtro-critico">🔴 15–17 días</button>
+      <button class="filtro-btn" onclick="filtrarAlertas('urgente')" id="filtro-urgente">🟠 18–19 días</button>
+      <button class="filtro-btn" onclick="filtrarAlertas('ventana')" id="filtro-ventana">🔵 20–22 días</button>
+    </div>
+
+    <!-- Tarjetas -->
+    <div class="alertas-grid" id="alertas-grid"></div>
+
+  </div>
+  <!-- /módulo 3 -->
+
+</main>
+
+<!-- ═══════════════════════════════════════════════ MODAL CONFIRMACIÓN -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <h3 id="modal-title">¿Eliminar registro?</h3>
+    <p id="modal-message">Esta acción no se puede deshacer.</p>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-danger" id="modal-confirm-btn">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ TOAST -->
+<div id="toast"></div>
+
+<!-- ═══════════════════════════════════════════════ JAVASCRIPT -->
+<script>
+'use strict';
+
+// ── STORAGE KEYS ────────────────────────────────
+const KEY_CLIENTAS = 'bc_clientas';
+const KEY_CITAS    = 'bc_citas';
+
+// ── STATE ────────────────────────────────────────
+let editingClientaId = null;
+let editingCitaId    = null;
+let pendingDeleteFn  = null;
+
+// ── UTILS ────────────────────────────────────────
+function uid() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+}
+
+function getData(key) {
+  try { return JSON.parse(localStorage.getItem(key)) || []; }
+  catch { return []; }
+}
+
+function saveData(key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
+}
+
+function fmtDate(str) {
+  if (!str) return '—';
+  const d = new Date(str);
+  if (isNaN(d)) return str;
+  return d.toLocaleDateString('es-CO', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+
+function fmtDateTime(str) {
+  if (!str) return '—';
+  const d = new Date(str);
+  if (isNaN(d)) return str;
+  return d.toLocaleDateString('es-CO', { day: '2-digit', month: 'short', year: 'numeric' })
+       + ' ' + d.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
+}
+
+function fmtMonto(n) {
+  if (!n && n !== 0) return '—';
+  return '$' + Number(n).toLocaleString('es-CO');
+}
+
+function escapeCSV(val) {
+  if (val === null || val === undefined) return '';
+  const s = String(val).replace(/"/g, '""');
+  return /[",\n\r]/.test(s) ? `"${s}"` : s;
+}
+
+// ── TOAST ────────────────────────────────────────
+function toast(msg, type = 'success') {
+  const icons = { success: '✅', error: '❌', info: 'ℹ️' };
+  const el = document.createElement('div');
+  el.className = `toast-item ${type}`;
+  el.innerHTML = `<span>${icons[type] || ''}</span> ${msg}`;
+  document.getElementById('toast').appendChild(el);
+  setTimeout(() => el.remove(), 3500);
+}
+
+// ── TABS ─────────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('module-' + tab).classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+  if (tab === 'citas')   populateClientaSelect();
+  if (tab === 'alertas') renderAlertas();
+}
+
+// ── COLLAPSIBLE CARDS ─────────────────────────────
+function toggleCard(id) {
+  const body   = document.getElementById(id);
+  const toggle = document.getElementById('toggle-' + id);
+  const collapsed = body.classList.toggle('collapsed');
+  toggle.textContent = collapsed ? '▼' : '▲';
+}
+
+// ── MODAL ────────────────────────────────────────
+function openModal(title, msg, onConfirm) {
+  document.getElementById('modal-title').textContent   = title;
+  document.getElementById('modal-message').textContent = msg;
+  document.getElementById('modal-confirm-btn').onclick = () => { onConfirm(); closeModal(); };
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+document.getElementById('modal-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// ═══════════════════════════════════════════════
+//  MÓDULO 1 — CLIENTAS
+// ═══════════════════════════════════════════════
+
+function getClientaForm() {
+  return {
+    id:             uid(),
+    nombre:         document.getElementById('c-nombre').value.trim(),
+    telefono:       document.getElementById('c-telefono').value.trim(),
+    instagram:      document.getElementById('c-instagram').value.trim(),
+    fechaPrimera:   document.getElementById('c-fecha-primera').value,
+    activa:         document.getElementById('c-activa').checked,
+    alergias:       document.getElementById('c-alergias').value.trim(),
+    condicion:      document.getElementById('c-condicion').value,
+    lentes:         document.getElementById('c-lentes').checked,
+    notasSalud:     document.getElementById('c-notas-salud').value.trim(),
+    creadaEn:       new Date().toISOString(),
+  };
+}
+
+function setClientaForm(c) {
+  document.getElementById('c-nombre').value          = c.nombre        || '';
+  document.getElementById('c-telefono').value        = c.telefono      || '';
+  document.getElementById('c-instagram').value       = c.instagram     || '';
+  document.getElementById('c-fecha-primera').value   = c.fechaPrimera  || '';
+  document.getElementById('c-activa').checked        = !!c.activa;
+  document.getElementById('c-alergias').value        = c.alergias      || '';
+  document.getElementById('c-condicion').value       = c.condicion     || 'Ninguna';
+  document.getElementById('c-lentes').checked        = !!c.lentes;
+  document.getElementById('c-notas-salud').value     = c.notasSalud    || '';
+}
+
+function saveClienta() {
+  const nombre = document.getElementById('c-nombre').value.trim();
+  if (!nombre) { toast('El nombre es obligatorio', 'error'); return; }
+
+  const data = getData(KEY_CLIENTAS);
+  const form = getClientaForm();
+
+  if (editingClientaId) {
+    const idx = data.findIndex(c => c.id === editingClientaId);
+    if (idx !== -1) {
+      form.id       = editingClientaId;
+      form.creadaEn = data[idx].creadaEn;
+      data[idx]     = form;
+      toast('Clienta actualizada correctamente');
+    }
+    editingClientaId = null;
+    document.getElementById('editing-bar-clientas').classList.remove('visible');
+  } else {
+    data.push(form);
+    toast('Clienta guardada correctamente');
+  }
+
+  saveData(KEY_CLIENTAS, data);
+  clearForm('clientas');
+  renderClientasTable();
+}
+
+function editClienta(id) {
+  const data = getData(KEY_CLIENTAS);
+  const c    = data.find(x => x.id === id);
+  if (!c) return;
+
+  editingClientaId = id;
+  setClientaForm(c);
+
+  const bar = document.getElementById('editing-bar-clientas');
+  document.getElementById('editing-name-clientas').textContent = c.nombre;
+  bar.classList.add('visible');
+
+  // expand form if collapsed
+  const body = document.getElementById('form-clientas');
+  if (body.classList.contains('collapsed')) toggleCard('form-clientas');
+
+  body.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function deleteClienta(id) {
+  const data = getData(KEY_CLIENTAS);
+  const c    = data.find(x => x.id === id);
+  if (!c) return;
+  openModal('Eliminar clienta', `¿Segura que deseas eliminar a "${c.nombre}"? Esta acción no se puede deshacer.`, () => {
+    saveData(KEY_CLIENTAS, data.filter(x => x.id !== id));
+    toast('Clienta eliminada', 'info');
+    renderClientasTable();
+  });
+}
+
+function cancelEdit(module) {
+  if (module === 'clientas') {
+    editingClientaId = null;
+    document.getElementById('editing-bar-clientas').classList.remove('visible');
+    clearForm('clientas');
+  } else {
+    editingCitaId = null;
+    document.getElementById('editing-bar-citas').classList.remove('visible');
+    clearForm('citas');
+  }
+}
+
+function clearForm(module) {
+  if (module === 'clientas') {
+    ['c-nombre','c-telefono','c-instagram','c-alergias','c-notas-salud'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('c-fecha-primera').value = '';
+    document.getElementById('c-activa').checked = true;
+    document.getElementById('c-lentes').checked = false;
+    document.getElementById('c-condicion').value = 'Ninguna';
+  } else {
+    const ids = ['a-id','a-monto','a-largo-lagrimal','a-largo-centro','a-largo-comisura','a-material','a-obs-diseno','a-foto-antes','a-foto-despues','a-notas-izq','a-notas-der'];
+    ids.forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+    document.getElementById('a-clienta').value = '';
+    document.getElementById('a-fecha').value = '';
+    document.getElementById('a-prox-retoque').value = '';
+    document.getElementById('a-asimetria').checked = false;
+    document.getElementById('a-autoriza').checked = false;
+    ['a-servicio','a-pago','a-dir-lagrimal','a-dir-centro','a-dir-comisura','a-alineacion','a-espacio','a-forma-ojo','a-parpado','a-apertura','a-efecto','a-curvatura','a-grosor','a-tecnica','a-estado-retoque','a-satisfaccion'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.options.length > 0) el.selectedIndex = 0;
+    });
+  }
+}
+
+function renderClientasTable() {
+  const data   = getData(KEY_CLIENTAS);
+  const query  = document.getElementById('search-clientas').value.toLowerCase();
+  const tbody  = document.getElementById('tbody-clientas');
+
+  const filtered = query
+    ? data.filter(c => c.nombre.toLowerCase().includes(query) || (c.telefono||'').includes(query) || (c.instagram||'').toLowerCase().includes(query))
+    : data;
+
+  document.getElementById('count-clientas').textContent = data.length;
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><div class="empty-state-icon">👤</div><div class="empty-state-text">${query ? 'Sin resultados para "' + query + '"' : 'Aún no hay clientas registradas'}</div></div></td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(c => `
+    <tr onclick="editClienta('${c.id}')">
+      <td><strong>${c.nombre}</strong></td>
+      <td class="muted">${c.telefono || '—'}</td>
+      <td class="muted">${c.instagram || '—'}</td>
+      <td class="muted">${fmtDate(c.fechaPrimera)}</td>
+      <td class="muted">${c.condicion || '—'}</td>
+      <td><span class="status-badge ${c.activa ? 'badge-active' : 'badge-inactive'}">${c.activa ? 'Activa' : 'Inactiva'}</span></td>
+      <td>
+        <div class="td-actions" onclick="event.stopPropagation()">
+          <button class="btn btn-secondary btn-sm" onclick="editClienta('${c.id}')">✏️ Editar</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteClienta('${c.id}')">🗑</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+
+// ═══════════════════════════════════════════════
+//  MÓDULO 2 — CITAS
+// ═══════════════════════════════════════════════
+
+function populateClientaSelect() {
+  const sel   = document.getElementById('a-clienta');
+  const prev  = sel.value;
+  const clts  = getData(KEY_CLIENTAS);
+  sel.innerHTML = '<option value="">— Seleccionar clienta —</option>'
+    + clts.map(c => `<option value="${c.nombre}">${c.nombre}</option>`).join('');
+  if (prev) sel.value = prev;
+}
+
+function getCitaForm() {
+  return {
+    id:              uid(),
+    citaId:          document.getElementById('a-id').value.trim(),
+    clienta:         document.getElementById('a-clienta').value,
+    fecha:           document.getElementById('a-fecha').value,
+    servicio:        document.getElementById('a-servicio').value,
+    monto:           document.getElementById('a-monto').value,
+    pago:            document.getElementById('a-pago').value,
+    dirLagrimal:     document.getElementById('a-dir-lagrimal').value,
+    dirCentro:       document.getElementById('a-dir-centro').value,
+    dirComisura:     document.getElementById('a-dir-comisura').value,
+    alineacion:      document.getElementById('a-alineacion').value,
+    espacio:         document.getElementById('a-espacio').value,
+    formaOjo:        document.getElementById('a-forma-ojo').value,
+    parpado:         document.getElementById('a-parpado').value,
+    apertura:        document.getElementById('a-apertura').value,
+    asimetria:       document.getElementById('a-asimetria').checked,
+    notasIzq:        document.getElementById('a-notas-izq').value.trim(),
+    notasDer:        document.getElementById('a-notas-der').value.trim(),
+    efecto:          document.getElementById('a-efecto').value,
+    curvatura:       document.getElementById('a-curvatura').value,
+    largoLagrimal:   document.getElementById('a-largo-lagrimal').value,
+    largoCentro:     document.getElementById('a-largo-centro').value,
+    largoComisura:   document.getElementById('a-largo-comisura').value,
+    grosor:          document.getElementById('a-grosor').value,
+    tecnica:         document.getElementById('a-tecnica').value,
+    material:        document.getElementById('a-material').value.trim(),
+    obsDiseno:       document.getElementById('a-obs-diseno').value.trim(),
+    fotoAntes:       document.getElementById('a-foto-antes').value.trim(),
+    fotoDespues:     document.getElementById('a-foto-despues').value.trim(),
+    autorizaPublic:  document.getElementById('a-autoriza').checked,
+    proxRetoque:     document.getElementById('a-prox-retoque').value,
+    estadoRetoque:   document.getElementById('a-estado-retoque').value,
+    satisfaccion:    document.getElementById('a-satisfaccion').value,
+    creadaEn:        new Date().toISOString(),
+  };
+}
+
+function setCitaForm(a) {
+  document.getElementById('a-id').value              = a.citaId          || '';
+  document.getElementById('a-clienta').value         = a.clienta         || '';
+  document.getElementById('a-fecha').value           = a.fecha           || '';
+  document.getElementById('a-servicio').value        = a.servicio        || 'Juego completo';
+  document.getElementById('a-monto').value           = a.monto           || '';
+  document.getElementById('a-pago').value            = a.pago            || 'Efectivo';
+  document.getElementById('a-dir-lagrimal').value    = a.dirLagrimal     || 'Hacia arriba';
+  document.getElementById('a-dir-centro').value      = a.dirCentro       || 'Hacia arriba';
+  document.getElementById('a-dir-comisura').value    = a.dirComisura     || 'Hacia arriba';
+  document.getElementById('a-alineacion').value      = a.alineacion      || 'Neutro';
+  document.getElementById('a-espacio').value         = a.espacio         || 'Proporcionado';
+  document.getElementById('a-forma-ojo').value       = a.formaOjo        || 'Almendrado';
+  document.getElementById('a-parpado').value         = a.parpado         || 'Normal';
+  document.getElementById('a-apertura').value        = a.apertura        || 'Normal';
+  document.getElementById('a-asimetria').checked     = !!a.asimetria;
+  document.getElementById('a-notas-izq').value       = a.notasIzq        || '';
+  document.getElementById('a-notas-der').value       = a.notasDer        || '';
+  document.getElementById('a-efecto').value          = a.efecto          || 'Natural';
+  document.getElementById('a-curvatura').value       = a.curvatura       || 'C';
+  document.getElementById('a-largo-lagrimal').value  = a.largoLagrimal   || '';
+  document.getElementById('a-largo-centro').value    = a.largoCentro     || '';
+  document.getElementById('a-largo-comisura').value  = a.largoComisura   || '';
+  document.getElementById('a-grosor').value          = a.grosor          || '0.07';
+  document.getElementById('a-tecnica').value         = a.tecnica         || 'Pelo a pelo';
+  document.getElementById('a-material').value        = a.material        || '';
+  document.getElementById('a-obs-diseno').value      = a.obsDiseno       || '';
+  document.getElementById('a-foto-antes').value      = a.fotoAntes       || '';
+  document.getElementById('a-foto-despues').value    = a.fotoDespues     || '';
+  document.getElementById('a-autoriza').checked      = !!a.autorizaPublic;
+  document.getElementById('a-prox-retoque').value    = a.proxRetoque     || '';
+  document.getElementById('a-estado-retoque').value  = a.estadoRetoque   || 'Pendiente';
+  document.getElementById('a-satisfaccion').value    = a.satisfaccion    || 'Muy satisfecha';
+}
+
+function saveCita() {
+  const clienta = document.getElementById('a-clienta').value;
+  if (!clienta) { toast('Selecciona una clienta', 'error'); return; }
+
+  const data = getData(KEY_CITAS);
+  const form = getCitaForm();
+
+  if (editingCitaId) {
+    const idx = data.findIndex(c => c.id === editingCitaId);
+    if (idx !== -1) {
+      form.id       = editingCitaId;
+      form.creadaEn = data[idx].creadaEn;
+      data[idx]     = form;
+      toast('Cita actualizada correctamente');
+    }
+    editingCitaId = null;
+    document.getElementById('editing-bar-citas').classList.remove('visible');
+  } else {
+    data.push(form);
+    toast('Cita guardada correctamente');
+  }
+
+  saveData(KEY_CITAS, data);
+  clearForm('citas');
+  renderCitasTable();
+}
+
+function editCita(id) {
+  populateClientaSelect();
+  const data = getData(KEY_CITAS);
+  const a    = data.find(x => x.id === id);
+  if (!a) return;
+
+  editingCitaId = id;
+  setCitaForm(a);
+
+  const bar = document.getElementById('editing-bar-citas');
+  document.getElementById('editing-name-citas').textContent = a.clienta + (a.fecha ? ' — ' + fmtDate(a.fecha) : '');
+  bar.classList.add('visible');
+
+  const body = document.getElementById('form-citas');
+  if (body.classList.contains('collapsed')) toggleCard('form-citas');
+  body.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function deleteCita(id) {
+  const data = getData(KEY_CITAS);
+  const a    = data.find(x => x.id === id);
+  if (!a) return;
+  openModal('Eliminar cita', `¿Segura que deseas eliminar la cita de "${a.clienta}"? Esta acción no se puede deshacer.`, () => {
+    saveData(KEY_CITAS, data.filter(x => x.id !== id));
+    toast('Cita eliminada', 'info');
+    renderCitasTable();
+  });
+}
+
+function renderCitasTable() {
+  const data   = getData(KEY_CITAS);
+  const query  = document.getElementById('search-citas').value.toLowerCase();
+  const tbody  = document.getElementById('tbody-citas');
+
+  const filtered = query
+    ? data.filter(a =>
+        (a.clienta||'').toLowerCase().includes(query) ||
+        (a.servicio||'').toLowerCase().includes(query) ||
+        (a.tecnica||'').toLowerCase().includes(query) ||
+        (a.efecto||'').toLowerCase().includes(query))
+    : data;
+
+  document.getElementById('count-citas').textContent = data.length;
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="10"><div class="empty-state"><div class="empty-state-icon">📋</div><div class="empty-state-text">${query ? 'Sin resultados para "' + query + '"' : 'Aún no hay citas registradas'}</div></div></td></tr>`;
+    return;
+  }
+
+  const estadoBadge = {
+    'Pendiente':   'badge-pending',
+    'Contactada':  'badge-inactive',
+    'Confirmada':  'badge-confirmed',
+    'Reagendada':  'badge-pending',
+    'No volvió':   'badge-inactive',
+  };
+
+  const satisfBadge = {
+    'Muy satisfecha':     'badge-confirmed',
+    'Satisfecha':         'badge-active',
+    'Con observaciones':  'badge-pending',
+    'Insatisfecha':       'badge-inactive',
+  };
+
+  tbody.innerHTML = filtered.map(a => `
+    <tr onclick="editCita('${a.id}')">
+      <td><strong>${a.clienta || '—'}</strong></td>
+      <td class="muted">${fmtDateTime(a.fecha)}</td>
+      <td class="muted">${a.servicio || '—'}</td>
+      <td class="muted">${a.tecnica || '—'}</td>
+      <td class="muted">${a.efecto || '—'}</td>
+      <td class="muted">${fmtMonto(a.monto)}</td>
+      <td class="muted">${fmtDate(a.proxRetoque)}</td>
+      <td><span class="status-badge ${estadoBadge[a.estadoRetoque] || 'badge-inactive'}">${a.estadoRetoque || '—'}</span></td>
+      <td><span class="status-badge ${satisfBadge[a.satisfaccion] || 'badge-inactive'}">${a.satisfaccion || '—'}</span></td>
+      <td>
+        <div class="td-actions" onclick="event.stopPropagation()">
+          <button class="btn btn-secondary btn-sm" onclick="editCita('${a.id}')">✏️ Editar</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteCita('${a.id}')">🗑</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+
+// ═══════════════════════════════════════════════
+//  MÓDULO 3 — ALERTAS / RECORDATORIOS
+// ═══════════════════════════════════════════════
+
+let filtroActivo = 'todos';
+
+/**
+ * Calcula días entre hoy (medianoche) y una fecha ISO
+ * Retorna número entero. Negativo = ya pasó.
+ */
+function diasHasta(fechaStr) {
+  if (!fechaStr) return null;
+  const hoy    = new Date();
+  hoy.setHours(0, 0, 0, 0);
+  const target = new Date(fechaStr);
+  target.setHours(0, 0, 0, 0);
+  return Math.round((target - hoy) / (1000 * 60 * 60 * 24));
+}
+
+/**
+ * Retorna nivel de urgencia según días restantes
+ * critico  = 15-17 días  (zona caliente, hay que contactar YA)
+ * urgente  = 18-19 días  (ventana ideal próxima)
+ * ventana  = 20-22 días  (recordatorio preventivo)
+ * null     = fuera de rango
+ */
+function nivelUrgencia(dias) {
+  if (dias === null) return null;
+  if (dias >= 15 && dias <= 17) return 'critico';
+  if (dias >= 18 && dias <= 19) return 'urgente';
+  if (dias >= 20 && dias <= 22) return 'ventana';
+  return null;
+}
+
+function filtrarAlertas(nivel) {
+  filtroActivo = nivel;
+  document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('filtro-' + nivel).classList.add('active');
+  renderAlertas();
+}
+
+function buildWhatsAppLink(telefono, nombre, dias, fechaRetoque) {
+  if (!telefono) return null;
+  // Limpia el número: quita espacios, guiones, paréntesis
+  let num = telefono.replace(/[\s\-()]/g, '');
+  // Si empieza con 0, reemplazar con código Colombia
+  if (num.startsWith('0')) num = '57' + num.slice(1);
+  // Si empieza con 3 (Colombia sin +57), agregar código
+  if (/^3\d{9}$/.test(num)) num = '57' + num;
+  // Quita el + si lo tiene
+  num = num.replace(/^\+/, '');
+
+  const fechaLegible = fmtDate(fechaRetoque);
+  const msg = encodeURIComponent(
+    `¡Hola ${nombre}! 👋\n\nTe escribimos desde *Barboza Caro* para recordarte que en aproximadamente *${dias} días* es tiempo de tu retoque de pestañas. 🌟\n\nTu fecha sugerida es el *${fechaLegible}*.\n\n¿Te gustaría agendar tu cita? Estamos para atenderte con mucho amor 💕`
+  );
+  return `https://wa.me/${num}?text=${msg}`;
+}
+
+function renderAlertas() {
+  const citas     = getData(KEY_CITAS);
+  const clientas  = getData(KEY_CLIENTAS);
+
+  // Construye mapa clienta-nombre → teléfono
+  const telMap = {};
+  clientas.forEach(c => { telMap[c.nombre] = c.telefono || ''; });
+
+  // Filtra las citas con proxRetoque en ventana 15-22 días
+  // Si hay varias citas de la misma clienta, toma la más reciente con proxRetoque
+  // Agrupa por clienta para mostrar la más relevante
+  const mapaClientas = {};
+  citas.forEach(a => {
+    if (!a.proxRetoque) return;
+    const dias = diasHasta(a.proxRetoque);
+    const nivel = nivelUrgencia(dias);
+    if (!nivel) return;
+
+    // Solo la mantiene si no hay otra de la misma clienta, o si esta es más urgente
+    const clave = a.clienta;
+    if (!mapaClientas[clave] || dias < mapaClientas[clave].dias) {
+      mapaClientas[clave] = { cita: a, dias, nivel, telefono: telMap[a.clienta] || '' };
+    }
+  });
+
+  const todas = Object.values(mapaClientas).sort((a, b) => a.dias - b.dias);
+
+  // Actualiza dot en el tab
+  const dot = document.getElementById('alert-dot');
+  if (todas.length > 0) {
+    dot.textContent = todas.length;
+    dot.classList.add('visible');
+  } else {
+    dot.classList.remove('visible');
+  }
+
+  // Resumen
+  const cnt = { critico: 0, urgente: 0, ventana: 0 };
+  todas.forEach(a => cnt[a.nivel]++);
+
+  document.getElementById('alertas-summary').innerHTML = `
+    <div class="summary-card total">
+      <div class="summary-card-value">${todas.length}</div>
+      <div class="summary-card-label">En ventana 15–22 días</div>
+    </div>
+    <div class="summary-card urgente">
+      <div class="summary-card-value">${cnt.critico}</div>
+      <div class="summary-card-label">🔴 15–17 días · Contactar ya</div>
+    </div>
+    <div class="summary-card proximo">
+      <div class="summary-card-value">${cnt.urgente}</div>
+      <div class="summary-card-label">🟠 18–19 días · Próximas</div>
+    </div>
+    <div class="summary-card ventana">
+      <div class="summary-card-value">${cnt.ventana}</div>
+      <div class="summary-card-label">🔵 20–22 días · Preventivas</div>
+    </div>
+  `;
+
+  // Filtra según el filtro activo
+  const visibles = filtroActivo === 'todos'
+    ? todas
+    : todas.filter(a => a.nivel === filtroActivo);
+
+  const grid = document.getElementById('alertas-grid');
+
+  if (todas.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column:1/-1">
+        <div class="empty-state">
+          <div class="empty-state-icon">🔔</div>
+          <div class="empty-state-text">No hay clientas en la ventana de 15 a 22 días</div>
+          <div class="empty-state-sub">Cuando una clienta esté próxima a su retoque aparecerá aquí automáticamente</div>
+        </div>
+      </div>`;
+    return;
+  }
+
+  if (visibles.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column:1/-1">
+        <div class="empty-state">
+          <div class="empty-state-icon">✅</div>
+          <div class="empty-state-text">No hay clientas en ese rango en este momento</div>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const etiquetas = { critico: '🔴 Contactar ya', urgente: '🟠 Próxima', ventana: '🔵 Preventiva' };
+  const nivelTexto = { critico: 'Zona crítica · 15-17 días', urgente: 'Ventana ideal · 18-19 días', ventana: 'Recordatorio · 20-22 días' };
+
+  grid.innerHTML = visibles.map(({ cita, dias, nivel, telefono }) => {
+    const waLink  = buildWhatsAppLink(telefono, cita.clienta, dias, cita.proxRetoque);
+    const waBtn   = waLink
+      ? `<a class="btn-whatsapp" href="${waLink}" target="_blank" rel="noopener">💬 WhatsApp</a>`
+      : `<span class="btn-whatsapp" style="opacity:0.4;cursor:default">💬 Sin teléfono</span>`;
+
+    return `
+    <div class="alerta-card nivel-${nivel}">
+      <div class="alerta-card-top">
+        <div>
+          <div class="alerta-nombre">${cita.clienta}</div>
+          <div class="alerta-servicio">${cita.servicio || '—'} · ${cita.tecnica || '—'}</div>
+          <div class="alerta-servicio" style="margin-top:4px;color:var(--text3)">${nivelTexto[nivel]}</div>
+        </div>
+        <div class="dias-badge nivel-${nivel}">
+          <span class="dias-num">${dias}</span>
+          <span class="dias-label">días</span>
+        </div>
+      </div>
+      <div class="alerta-card-body">
+        <div class="alerta-info-row">
+          <span class="alerta-info-key">📅 Retoque sugerido</span>
+          <span class="alerta-info-val">${fmtDate(cita.proxRetoque)}</span>
+        </div>
+        <div class="alerta-info-row">
+          <span class="alerta-info-key">📞 Teléfono</span>
+          <span class="alerta-info-val">${telefono || '—'}</span>
+        </div>
+        <div class="alerta-info-row">
+          <span class="alerta-info-key">💎 Técnica</span>
+          <span class="alerta-info-val">${cita.tecnica || '—'}</span>
+        </div>
+        <div class="alerta-info-row">
+          <span class="alerta-info-key">✨ Efecto</span>
+          <span class="alerta-info-val">${cita.efecto || '—'}</span>
+        </div>
+        <div class="alerta-info-row">
+          <span class="alerta-info-key">📌 Estado retoque</span>
+          <span class="alerta-info-val">${cita.estadoRetoque || '—'}</span>
+        </div>
+        ${cita.satisfaccion ? `
+        <div class="alerta-info-row">
+          <span class="alerta-info-key">⭐ Última satisfacción</span>
+          <span class="alerta-info-val">${cita.satisfaccion}</span>
+        </div>` : ''}
+      </div>
+      <div class="alerta-card-footer">
+        ${waBtn}
+        <button class="btn-ver-cita" onclick="verCitaDesdeAlerta('${cita.id}')">📋 Ver ficha</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function verCitaDesdeAlerta(citaId) {
+  switchTab('citas');
+  setTimeout(() => editCita(citaId), 200);
+}
+
+// ═══════════════════════════════════════════════
+//  EXPORTAR CSV
+// ═══════════════════════════════════════════════
+
+const CSV_HEADERS_CLIENTAS = [
+  'Nombre Completo','Teléfono / WhatsApp','Instagram','Fecha Primera Cita',
+  'Clienta Activa','Alergias Conocidas','Usa Lentes de Contacto',
+  'Condición Ocular','Notas de Salud','Creada En'
+];
+
+const CSV_HEADERS_CITAS = [
+  'ID Cita','Clienta','Fecha Cita','Tipo de Servicio','Monto Cobrado','Método de Pago',
+  'Dir. Lagrimal','Dir. Centro','Dir. Comisura','Alineación y Eje',
+  'Espacio Intraocular','Forma del Ojo','Tipo de Párpado','Apertura Párpado','Asimetría',
+  'Notas Ojo Izquierdo','Notas Ojo Derecho',
+  'Efecto / Mapa','Curvatura','Largo Lagrimal (mm)','Largo Centro (mm)','Largo Comisura (mm)',
+  'Grosor / Volumen','Técnica Aplicada','Material / Marca','Observaciones Diseño',
+  'Foto Antes','Foto Después','Autoriza Publicación',
+  'Próximo Retoque','Estado Retoque','Satisfacción Clienta','Creada En'
+];
+
+function clientaToRow(c) {
+  return [
+    c.nombre, c.telefono, c.instagram, c.fechaPrimera,
+    c.activa ? 'Sí' : 'No', c.alergias,
+    c.lentes ? 'Sí' : 'No', c.condicion, c.notasSalud, c.creadaEn
+  ].map(escapeCSV).join(',');
+}
+
+function citaToRow(a) {
+  return [
+    a.citaId, a.clienta, a.fecha, a.servicio, a.monto, a.pago,
+    a.dirLagrimal, a.dirCentro, a.dirComisura, a.alineacion,
+    a.espacio, a.formaOjo, a.parpado, a.apertura,
+    a.asimetria ? 'Sí' : 'No', a.notasIzq, a.notasDer,
+    a.efecto, a.curvatura, a.largoLagrimal, a.largoCentro, a.largoComisura,
+    a.grosor, a.tecnica, a.material, a.obsDiseno,
+    a.fotoAntes, a.fotoDespues,
+    a.autorizaPublic ? 'Sí' : 'No',
+    a.proxRetoque, a.estadoRetoque, a.satisfaccion, a.creadaEn
+  ].map(escapeCSV).join(',');
+}
+
+function exportCSV(module) {
+  let rows, headers, filename;
+
+  if (module === 'clientas') {
+    const data = getData(KEY_CLIENTAS);
+    if (!data.length) { toast('No hay clientas para exportar', 'error'); return; }
+    headers  = CSV_HEADERS_CLIENTAS;
+    rows     = data.map(clientaToRow);
+    filename = 'barboza-caro-clientas-' + new Date().toISOString().slice(0,10) + '.csv';
+  } else {
+    const data = getData(KEY_CITAS);
+    if (!data.length) { toast('No hay citas para exportar', 'error'); return; }
+    headers  = CSV_HEADERS_CITAS;
+    rows     = data.map(citaToRow);
+    filename = 'barboza-caro-citas-' + new Date().toISOString().slice(0,10) + '.csv';
+  }
+
+  const csv  = '﻿' + headers.map(escapeCSV).join(',') + '\n' + rows.join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url  = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href     = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+  toast('CSV exportado: ' + filename);
+}
+
+
+// ═══════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  renderClientasTable();
+  renderCitasTable();
+  // Precalcula el dot de alertas sin entrar al tab
+  (function initAlertDot() {
+    const citas = getData(KEY_CITAS);
+    const count = new Set(
+      citas
+        .filter(a => a.proxRetoque && nivelUrgencia(diasHasta(a.proxRetoque)) !== null)
+        .map(a => a.clienta)
+    ).size;
+    const dot = document.getElementById('alert-dot');
+    if (count > 0) { dot.textContent = count; dot.classList.add('visible'); }
+  })();
+});
+</script>
+</body>
+</html>
