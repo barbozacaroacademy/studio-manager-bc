@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Studio Manager Pro — Barboza Caro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #F9F6F1;
@@ -32,7 +35,7 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-family: 'Montserrat', 'Segoe UI', system-ui, -apple-system, sans-serif;
     font-size: 14px;
     line-height: 1.5;
     min-height: 100vh;
@@ -42,73 +45,97 @@
   header {
     background: var(--bg2);
     border-bottom: 1px solid var(--border);
-    padding: 0 32px;
+    padding: 0 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 64px;
+    height: 76px;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+    box-shadow: 0 1px 0 var(--border), 0 4px 20px rgba(49,48,48,0.04);
   }
 
   .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 18px;
   }
 
-  .logo-icon {
-    width: 36px;
-    height: 36px;
-    background: var(--accent);
-    border-radius: 8px;
+  .logo-monogram {
+    width: 44px;
+    height: 44px;
+    border: 1.5px solid var(--accent);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 12px;
     font-weight: 700;
-    color: white;
-    letter-spacing: -1px;
+    color: var(--accent);
+    letter-spacing: 1.5px;
+    flex-shrink: 0;
+    font-family: 'Montserrat', sans-serif;
   }
 
-  .logo-text {
+  .logo-brand {
     display: flex;
     flex-direction: column;
-    line-height: 1.1;
+    gap: 5px;
   }
 
   .logo-name {
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing: 5px;
     color: var(--text);
+    line-height: 1;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .logo-rule {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, var(--accent), transparent);
   }
 
   .logo-sub {
-    font-size: 10px;
-    color: var(--text2);
-    letter-spacing: 1px;
+    font-size: 8px;
+    color: var(--text3);
+    letter-spacing: 3px;
     text-transform: uppercase;
+    font-weight: 500;
+    line-height: 1;
   }
 
   .header-right {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 16px;
+  }
+
+  .header-tagline {
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-style: italic;
+    font-family: 'Montserrat', sans-serif;
   }
 
   .badge {
-    background: var(--accent-glow);
+    background: transparent;
     border: 1px solid var(--accent);
     color: var(--accent);
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 600;
-    letter-spacing: 1px;
-    padding: 3px 8px;
-    border-radius: 20px;
+    letter-spacing: 2px;
+    padding: 4px 10px;
+    border-radius: 2px;
     text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
   }
 
   /* ─── TABS ───────────────────────────────────── */
@@ -880,6 +907,516 @@
 
   .tab-alert-dot.visible { display: inline-flex; }
 
+  /* ─── MOTOR VISAGISMO ───────────────────────── */
+  .btn-analizar {
+    width: 100%;
+    justify-content: center;
+    padding: 15px;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(201,169,110,0.35);
+  }
+  .btn-analizar:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(201,169,110,0.45); }
+
+  .analisis-result {
+    border: 2px solid var(--accent);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-top: 16px;
+    background: var(--bg);
+  }
+
+  .analisis-header {
+    background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+    color: white;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .analisis-header-title { font-size: 13px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
+  .analisis-header-sub   { font-size: 11px; opacity: 0.85; margin-top: 2px; }
+  .analisis-header-badge {
+    background: rgba(255,255,255,0.25);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .analisis-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .analisis-section {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+  }
+  .analisis-section-title {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent-dim);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .analisis-diag-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.75;
+  }
+  .analisis-notas {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .analisis-nota {
+    font-size: 12px;
+    color: var(--text2);
+    padding-left: 10px;
+    border-left: 2px solid var(--accent);
+    line-height: 1.5;
+  }
+
+  .diseno-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .diseno-item {
+    background: var(--bg3);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+  }
+  .diseno-item.full  { grid-column: 1 / -1; }
+  .diseno-label      { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text2); margin-bottom: 3px; }
+  .diseno-value      { font-size: 15px; font-weight: 800; color: var(--text); }
+  .diseno-value.gold { color: var(--accent); }
+
+  /* Mapa visual */
+  .mapa-eye-wrap {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
+    height: 90px;
+    padding-bottom: 0;
+  }
+  .mapa-zona {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+  }
+  .mapa-mm      { font-size: 12px; font-weight: 800; color: var(--text); }
+  .mapa-barras  { display: flex; align-items: flex-end; gap: 2px; height: 56px; }
+  .mapa-barra   { width: 6px; background: var(--accent); border-radius: 3px 3px 0 0; }
+  .mapa-zona-lbl{ font-size: 9px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text3); margin-top: 2px; }
+  .mapa-separador { width: 1px; height: 50px; background: var(--border2); align-self: flex-end; flex-shrink: 0; }
+
+  /* Restricciones */
+  .restricciones-list { display: flex; flex-direction: column; gap: 6px; }
+  .restriccion-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: var(--radius);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+  .restriccion-item.critica { background: rgba(192,57,43,0.07); border: 1px solid rgba(192,57,43,0.2); color: var(--danger); }
+  .restriccion-item.alerta  { background: rgba(176,122,42,0.07); border: 1px solid rgba(176,122,42,0.2); color: var(--warning); }
+  .restriccion-item.info    { background: rgba(201,169,110,0.07); border: 1px solid rgba(201,169,110,0.25); color: var(--accent-dim); }
+  .restriccion-icon { flex-shrink: 0; font-size: 13px; }
+
+  .btn-aplicar {
+    width: 100%;
+    justify-content: center;
+    padding: 13px;
+    font-size: 13px;
+    font-weight: 800;
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .btn-aplicar:hover { background: #1a1a1a; transform: translateY(-1px); }
+
+  /* ─── DIAGNÓSTICO ÉLITE ──────────────────────── */
+  .diagnostico-elite-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text2);
+  }
+  .diagnostico-elite-tag {
+    background: var(--accent-glow);
+    border: 1px solid rgba(201,169,110,0.4);
+    color: var(--accent-dim);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 3px 9px;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+  .asimetria-banner {
+    background: rgba(176,122,42,0.07);
+    border: 1px solid rgba(176,122,42,0.3);
+    border-left: 3px solid var(--warning);
+    border-radius: var(--radius);
+    padding: 11px 14px;
+    font-size: 12px;
+    color: var(--warning);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  /* ─── REPORTE ÉLITE (5 BLOQUES) ─────────────── */
+  .reporte-elite {
+    border: 1.5px solid var(--border2);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-top: 18px;
+    background: var(--bg);
+  }
+  .reporte-elite-header {
+    background: var(--text);
+    color: var(--bg);
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .reporte-elite-marca {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .reporte-elite-titulo {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 4px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .reporte-elite-nombre {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .reporte-elite-nombre-label {
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+  .reporte-elite-nombre-value {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+    font-family: 'Montserrat', sans-serif;
+  }
+  .reporte-elite-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .bloque-elite {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .bloque-elite-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+  }
+  .bloque-elite-num {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--text);
+    color: var(--bg);
+    font-size: 9px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .bloque-elite-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text2);
+    font-family: 'Montserrat', sans-serif;
+  }
+  .bloque-elite-body {
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .elite-texto {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.75;
+  }
+  .elite-alerta-critica {
+    background: rgba(192,57,43,0.06);
+    border: 1px solid rgba(192,57,43,0.2);
+    border-left: 3px solid var(--danger);
+    border-radius: var(--radius);
+    padding: 9px 12px;
+    font-size: 12px;
+    color: var(--danger);
+    font-weight: 600;
+    line-height: 1.6;
+  }
+  .elite-alerta-info {
+    background: var(--accent-glow);
+    border: 1px solid rgba(201,169,110,0.3);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 9px 12px;
+    font-size: 12px;
+    color: var(--accent-dim);
+    font-weight: 600;
+    line-height: 1.6;
+  }
+  .elite-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .elite-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .elite-item {
+    background: var(--bg3);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+  }
+  .elite-item-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 4px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .elite-item-value {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .elite-item-value.gold { color: var(--accent); }
+  .elite-item.full { grid-column: 1 / -1; }
+  .elite-layering {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .elite-layer-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: var(--bg3);
+    border-radius: var(--radius);
+    border-left: 3px solid var(--border2);
+  }
+  .elite-layer-row.alta  { border-left-color: var(--text); }
+  .elite-layer-row.media { border-left-color: var(--accent); }
+  .elite-layer-row.baja  { border-left-color: var(--border2); }
+  .elite-layer-name {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text2);
+    min-width: 46px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .elite-layer-value {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .elite-mapa-seq {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    justify-content: center;
+    height: 72px;
+    padding: 0 8px;
+  }
+  .elite-mapa-pin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    flex: 1;
+  }
+  .elite-mapa-bar { background: var(--accent); border-radius: 2px 2px 0 0; width: 100%; }
+  .elite-mapa-mm { font-size: 8px; font-weight: 700; color: var(--text2); }
+  .advertencia-lista { display: flex; flex-direction: column; gap: 6px; }
+  .advertencia-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    padding: 9px 12px;
+    border-radius: var(--radius);
+    font-size: 12px;
+    line-height: 1.6;
+    background: rgba(192,57,43,0.05);
+    border: 1px solid rgba(192,57,43,0.15);
+    color: var(--text);
+  }
+  .advertencia-icon { flex-shrink: 0; font-size: 13px; }
+  .advertencia-ok {
+    background: rgba(201,169,110,0.07);
+    border-color: rgba(201,169,110,0.25);
+    color: var(--accent-dim);
+  }
+
+  /* ─── FOTO UPLOAD ───────────────────────────── */
+  .foto-upload-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .foto-upload-btns {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .foto-upload-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 16px;
+    background: var(--bg3);
+    border: 1px dashed var(--border2);
+    border-radius: var(--radius);
+    color: var(--text2);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .foto-upload-label:hover {
+    background: var(--bg4);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .foto-preview-box {
+    width: 100%;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .foto-preview-box img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .foto-preview-box .foto-empty {
+    font-size: 12px;
+    color: var(--text3);
+    padding: 12px;
+  }
+
+  .foto-clear-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: rgba(49,48,48,0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 13px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .foto-clear-btn.visible { display: flex; }
+
   /* ─── RESPONSIVE ─────────────────────────────── */
   @media (max-width: 900px) {
     main { padding: 20px 16px 48px; }
@@ -901,14 +1438,16 @@
 <!-- ═══════════════════════════════════════════════ HEADER -->
 <header>
   <div class="logo">
-    <div class="logo-icon">BC</div>
-    <div class="logo-text">
+    <div class="logo-monogram">BC</div>
+    <div class="logo-brand">
       <span class="logo-name">BARBOZA CARO</span>
-      <span class="logo-sub">Studio Manager Pro</span>
+      <span class="logo-rule"></span>
+      <span class="logo-sub">Studio Manager Pro · Barranquilla</span>
     </div>
   </div>
   <div class="header-right">
-    <span class="badge">v1.0</span>
+    <span class="header-tagline">Arquitectura de la Mirada</span>
+    <span class="badge">Élite 2025</span>
   </div>
 </header>
 
@@ -1107,7 +1646,7 @@
           </div>
           <div class="form-group">
             <label>Monto Cobrado</label>
-            <input type="number" id="a-monto" placeholder="0" min="0" step="0.01">
+            <input type="number" id="a-monto" placeholder="Ej: 70000" min="0" step="any">
           </div>
           <div class="form-group">
             <label>Método de Pago</label>
@@ -1123,107 +1662,127 @@
 
         <div class="divider"></div>
 
-        <!-- Diagnóstico dirección -->
-        <div class="card-title" style="margin-bottom:16px"><span class="card-title-dot"></span>Diagnóstico — Dirección de Pestañas Naturales</div>
+        <!-- ── DIAGNÓSTICO MORFOLÓGICO ÉLITE 2025-2026 ── -->
+        <div class="diagnostico-elite-header">
+          <span class="card-title-dot"></span>
+          <span>Diagnóstico Morfológico Élite</span>
+          <span class="diagnostico-elite-tag">Motor 2025–2026</span>
+        </div>
         <div class="form-grid cols-3">
           <div class="form-group">
-            <label>Dir. Sector Lagrimal</label>
-            <select id="a-dir-lagrimal">
-              <option value="Hacia arriba">Hacia arriba</option>
-              <option value="Horizontal">Horizontal</option>
-              <option value="Hacia abajo">Hacia abajo</option>
-              <option value="Cruzadas">Cruzadas</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Dir. Sector Centro</label>
-            <select id="a-dir-centro">
-              <option value="Hacia arriba">Hacia arriba</option>
-              <option value="Horizontal">Horizontal</option>
-              <option value="Hacia abajo">Hacia abajo</option>
-              <option value="Cruzadas">Cruzadas</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Dir. Sector Comisura</label>
-            <select id="a-dir-comisura">
-              <option value="Hacia arriba">Hacia arriba</option>
-              <option value="Horizontal">Horizontal</option>
-              <option value="Hacia abajo">Hacia abajo</option>
-              <option value="Cruzadas">Cruzadas</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Alineación y Eje</label>
-            <select id="a-alineacion">
+            <label>Eje Cantal <span class="required">*</span></label>
+            <select id="a-eje-cantal">
               <option value="Neutro">Neutro</option>
               <option value="Ascendente">Ascendente</option>
               <option value="Descendente">Descendente</option>
             </select>
           </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- Diagnóstico morfología -->
-        <div class="card-title" style="margin-bottom:16px"><span class="card-title-dot"></span>Diagnóstico — Morfología Ocular</div>
-        <div class="form-grid cols-3">
           <div class="form-group">
-            <label>Espacio Intraocular</label>
-            <select id="a-espacio">
-              <option value="Proporcionado">Proporcionado</option>
+            <label>Flow de Pestañas (Dirección Natural)</label>
+            <select id="a-flow-direccion">
+              <option value="+1">+1 · Curvatura natural hacia arriba</option>
+              <option value="0">0 · Horizontales</option>
+              <option value="-1">-1 · Rectas / Hacia abajo</option>
+              <option value="-2">-2 · Hacia abajo extrema</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tipología del Párpado</label>
+            <select id="a-tipologia-parpado">
+              <option value="Móvil Expuesto">Móvil Expuesto</option>
+              <option value="Encapotado Total">Encapotado Total (Hooded)</option>
+              <option value="Encapotado Parcial/Lateral">Encapotado Parcial / Lateral</option>
+              <option value="Monólido">Monólido</option>
+              <option value="Laxitud Edad">Laxitud por Edad</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Espacio Orbital</label>
+            <select id="a-espacio-orbital">
+              <option value="Medio">Medio</option>
+              <option value="Amplio">Amplio</option>
+              <option value="Estrecho">Estrecho</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Distancia Interocular</label>
+            <select id="a-distancia-interocular">
+              <option value="Proporcionados">Proporcionados</option>
               <option value="Juntos">Juntos</option>
               <option value="Separados">Separados</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Forma del Ojo</label>
-            <select id="a-forma-ojo">
-              <option value="Almendrado">Almendrado</option>
-              <option value="Redondo">Redondo</option>
-              <option value="Asiático">Asiático</option>
-              <option value="Pequeño">Pequeño</option>
-              <option value="Hundido">Hundido</option>
-              <option value="Prominente">Prominente</option>
+            <label>Densidad Folicular</label>
+            <select id="a-densidad-folicular">
+              <option value="Media (3-4 capas)">Media (3–4 capas)</option>
+              <option value="Alta (4-5 capas)">Alta (4–5 capas)</option>
+              <option value="Baja (2-3 capas)">Baja (2–3 capas)</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Tipo de Párpado</label>
-            <select id="a-parpado">
-              <option value="Normal">Normal</option>
-              <option value="Encapotado">Encapotado</option>
-              <option value="Caído">Caído</option>
-              <option value="Ancho">Ancho</option>
-              <option value="Monolid">Monolid</option>
-              <option value="Hundido">Hundido</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Apertura del Párpado</label>
-            <select id="a-apertura">
-              <option value="Normal">Normal</option>
-              <option value="Pequeña">Pequeña</option>
-              <option value="Grande">Grande</option>
+            <label>Estilo Solicitado</label>
+            <select id="a-estilo-solicitado">
+              <option value="Comercial Natural">Comercial Natural</option>
+              <option value="Wet Set">Wet Set</option>
+              <option value="Efecto Lifting">Efecto Lifting</option>
+              <option value="Wispy Estructurado">Wispy Estructurado</option>
+              <option value="Anime/Manga">Anime / Manga</option>
+              <option value="Editorial">Editorial</option>
             </select>
           </div>
           <div class="form-group">
             <label style="opacity:0">.</label>
             <div class="checkbox-group">
-              <input type="checkbox" id="a-asimetria">
-              <label class="checkbox-label" for="a-asimetria">Asimetría presente</label>
+              <input type="checkbox" id="a-asimetria-toggle" onchange="toggleAsimetriaPanel()">
+              <label class="checkbox-label" for="a-asimetria-toggle">Asimetría OD / OI presente</label>
             </div>
           </div>
-          <div class="form-group full-width form-grid cols-2" style="display:grid">
+        </div>
+
+        <!-- Panel asimetría (condicional) -->
+        <div id="asimetria-panel" style="display:none; margin-top:16px">
+          <div class="asimetria-banner">
+            <span>⚠ Asimetría activada — complete los datos del ojo derecho para generar mapa independiente</span>
+          </div>
+          <div class="form-grid cols-2" style="margin-top:14px">
             <div class="form-group">
-              <label>Notas Ojo Izquierdo</label>
+              <label>Eje Cantal — Ojo Derecho (OD)</label>
+              <select id="a-eje-cantal-od">
+                <option value="Neutro">Neutro</option>
+                <option value="Ascendente">Ascendente</option>
+                <option value="Descendente">Descendente</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Tipología Párpado — Ojo Derecho (OD)</label>
+              <select id="a-parpado-od">
+                <option value="Móvil Expuesto">Móvil Expuesto</option>
+                <option value="Encapotado Total">Encapotado Total</option>
+                <option value="Encapotado Parcial/Lateral">Encapotado Parcial / Lateral</option>
+                <option value="Monólido">Monólido</option>
+                <option value="Laxitud Edad">Laxitud por Edad</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Notas Ojo Izquierdo (OI)</label>
               <textarea id="a-notas-izq" placeholder="Observaciones ojo izquierdo..."></textarea>
             </div>
             <div class="form-group">
-              <label>Notas Ojo Derecho</label>
+              <label>Notas Ojo Derecho (OD)</label>
               <textarea id="a-notas-der" placeholder="Observaciones ojo derecho..."></textarea>
             </div>
           </div>
         </div>
+
+        <div class="divider"></div>
+
+        <!-- ── ANALIZADOR DE VISAGISMO ── -->
+        <div class="card-title" style="margin-bottom:14px"><span class="card-title-dot"></span>Análisis de Visagismo Inteligente</div>
+        <button class="btn-analizar" onclick="analizarVisagismo()">
+          🔍 Analizar morfología y generar diseño automáticamente
+        </button>
+        <div id="resultado-visagismo"></div>
 
         <div class="divider"></div>
 
@@ -1234,11 +1793,11 @@
             <label>Efecto / Mapa Elegido</label>
             <select id="a-efecto">
               <option value="Natural">Natural</option>
-              <option value="Cat eye">Cat eye</option>
-              <option value="Doll eye">Doll eye</option>
-              <option value="Fox eye">Fox eye</option>
-              <option value="Squirrel">Squirrel</option>
-              <option value="Wet look">Wet look</option>
+              <option value="Cat eye">Cat eye (Ojo de gato)</option>
+              <option value="Doll eye">Doll eye (Ojo de muñeca)</option>
+              <option value="Fox eye">Fox eye (Ojo de zorro)</option>
+              <option value="Squirrel">Squirrel (Ardilla)</option>
+              <option value="Wet look">Wet look (Efecto mojado)</option>
               <option value="Personalizado">Personalizado</option>
             </select>
           </div>
@@ -1260,20 +1819,21 @@
               <option value="0.05">0.05</option>
               <option value="0.07">0.07</option>
               <option value="0.10">0.10</option>
+              <option value="0.15">0.15</option>
               <option value="Mix">Mix</option>
             </select>
           </div>
           <div class="form-group">
             <label>Largo Zona Lagrimal (mm)</label>
-            <input type="number" id="a-largo-lagrimal" placeholder="0" min="0" max="30" step="0.5">
+            <input type="text" id="a-largo-lagrimal" placeholder="Ej: 9 o 8-9-10">
           </div>
           <div class="form-group">
             <label>Largo Zona Centro (mm)</label>
-            <input type="number" id="a-largo-centro" placeholder="0" min="0" max="30" step="0.5">
+            <input type="text" id="a-largo-centro" placeholder="Ej: 11 o 11-12">
           </div>
           <div class="form-group">
             <label>Largo Zona Comisura (mm)</label>
-            <input type="number" id="a-largo-comisura" placeholder="0" min="0" max="30" step="0.5">
+            <input type="text" id="a-largo-comisura" placeholder="Ej: 10 o 9-10">
           </div>
           <div class="form-group">
             <label>Técnica Aplicada</label>
@@ -1283,6 +1843,7 @@
               <option value="Volumen mega">Volumen mega</option>
               <option value="Híbrido">Híbrido</option>
               <option value="Wet look">Wet look</option>
+              <option value="Fibras tecnológicas">Fibras tecnológicas</option>
             </select>
           </div>
           <div class="form-group">
@@ -1300,14 +1861,44 @@
         <!-- Registro visual -->
         <div class="card-title" style="margin-bottom:16px"><span class="card-title-dot"></span>Registro Visual</div>
         <div class="form-grid cols-3">
+
+          <!-- FOTO ANTES -->
           <div class="form-group">
-            <label>Foto Antes (URL Google Drive)</label>
-            <input type="url" id="a-foto-antes" placeholder="https://drive.google.com/...">
+            <label>Foto Antes</label>
+            <input type="hidden" id="a-foto-antes">
+            <div class="foto-upload-wrap">
+              <div class="foto-upload-btns">
+                <label class="foto-upload-label" for="file-antes-galeria">🖼 Galería</label>
+                <input type="file" id="file-antes-galeria" accept="image/*" style="display:none" onchange="handleFoto('antes', this)">
+                <label class="foto-upload-label" for="file-antes-camara">📷 Cámara</label>
+                <input type="file" id="file-antes-camara" accept="image/*" capture="environment" style="display:none" onchange="handleFoto('antes', this)">
+              </div>
+              <div class="foto-preview-box" id="preview-antes">
+                <span class="foto-empty">Sin foto</span>
+                <button type="button" class="foto-clear-btn" id="clear-antes" onclick="clearFoto('antes')">✕</button>
+              </div>
+            </div>
           </div>
+
+          <!-- FOTO DESPUÉS -->
           <div class="form-group">
-            <label>Foto Después (URL Google Drive)</label>
-            <input type="url" id="a-foto-despues" placeholder="https://drive.google.com/...">
+            <label>Foto Después</label>
+            <input type="hidden" id="a-foto-despues">
+            <div class="foto-upload-wrap">
+              <div class="foto-upload-btns">
+                <label class="foto-upload-label" for="file-despues-galeria">🖼 Galería</label>
+                <input type="file" id="file-despues-galeria" accept="image/*" style="display:none" onchange="handleFoto('despues', this)">
+                <label class="foto-upload-label" for="file-despues-camara">📷 Cámara</label>
+                <input type="file" id="file-despues-camara" accept="image/*" capture="environment" style="display:none" onchange="handleFoto('despues', this)">
+              </div>
+              <div class="foto-preview-box" id="preview-despues">
+                <span class="foto-empty">Sin foto</span>
+                <button type="button" class="foto-clear-btn" id="clear-despues" onclick="clearFoto('despues')">✕</button>
+              </div>
+            </div>
           </div>
+
+          <!-- AUTORIZA -->
           <div class="form-group">
             <label style="opacity:0">.</label>
             <div class="checkbox-group">
@@ -1315,6 +1906,7 @@
               <label class="checkbox-label" for="a-autoriza">Autoriza publicación</label>
             </div>
           </div>
+
         </div>
 
         <div class="divider"></div>
@@ -1647,6 +2239,8 @@ function clearForm(module) {
     document.getElementById('a-prox-retoque').value = '';
     document.getElementById('a-asimetria').checked = false;
     document.getElementById('a-autoriza').checked = false;
+    setFotoPreview('antes', '');
+    setFotoPreview('despues', '');
     ['a-servicio','a-pago','a-dir-lagrimal','a-dir-centro','a-dir-comisura','a-alineacion','a-espacio','a-forma-ojo','a-parpado','a-apertura','a-efecto','a-curvatura','a-grosor','a-tecnica','a-estado-retoque','a-satisfaccion'].forEach(id => {
       const el = document.getElementById(id);
       if (el && el.options.length > 0) el.selectedIndex = 0;
@@ -1711,17 +2305,18 @@ function getCitaForm() {
     servicio:        document.getElementById('a-servicio').value,
     monto:           document.getElementById('a-monto').value,
     pago:            document.getElementById('a-pago').value,
-    dirLagrimal:     document.getElementById('a-dir-lagrimal').value,
-    dirCentro:       document.getElementById('a-dir-centro').value,
-    dirComisura:     document.getElementById('a-dir-comisura').value,
-    alineacion:      document.getElementById('a-alineacion').value,
-    espacio:         document.getElementById('a-espacio').value,
-    formaOjo:        document.getElementById('a-forma-ojo').value,
-    parpado:         document.getElementById('a-parpado').value,
-    apertura:        document.getElementById('a-apertura').value,
-    asimetria:       document.getElementById('a-asimetria').checked,
-    notasIzq:        document.getElementById('a-notas-izq').value.trim(),
-    notasDer:        document.getElementById('a-notas-der').value.trim(),
+    ejeCantal:            document.getElementById('a-eje-cantal').value,
+    flowDireccion:        document.getElementById('a-flow-direccion').value,
+    tipologiaParpado:     document.getElementById('a-tipologia-parpado').value,
+    espacioOrbital:       document.getElementById('a-espacio-orbital').value,
+    distanciaInterocular: document.getElementById('a-distancia-interocular').value,
+    densidadFolicular:    document.getElementById('a-densidad-folicular').value,
+    estiloSolicitado:     document.getElementById('a-estilo-solicitado').value,
+    asimetriaActiva:      document.getElementById('a-asimetria-toggle').checked,
+    ejeCantaloD:          document.getElementById('a-eje-cantal-od').value,
+    parpadoOD:            document.getElementById('a-parpado-od').value,
+    notasIzq:             document.getElementById('a-notas-izq') ? document.getElementById('a-notas-izq').value.trim() : '',
+    notasDer:             document.getElementById('a-notas-der') ? document.getElementById('a-notas-der').value.trim() : '',
     efecto:          document.getElementById('a-efecto').value,
     curvatura:       document.getElementById('a-curvatura').value,
     largoLagrimal:   document.getElementById('a-largo-lagrimal').value,
@@ -1748,17 +2343,19 @@ function setCitaForm(a) {
   document.getElementById('a-servicio').value        = a.servicio        || 'Juego completo';
   document.getElementById('a-monto').value           = a.monto           || '';
   document.getElementById('a-pago').value            = a.pago            || 'Efectivo';
-  document.getElementById('a-dir-lagrimal').value    = a.dirLagrimal     || 'Hacia arriba';
-  document.getElementById('a-dir-centro').value      = a.dirCentro       || 'Hacia arriba';
-  document.getElementById('a-dir-comisura').value    = a.dirComisura     || 'Hacia arriba';
-  document.getElementById('a-alineacion').value      = a.alineacion      || 'Neutro';
-  document.getElementById('a-espacio').value         = a.espacio         || 'Proporcionado';
-  document.getElementById('a-forma-ojo').value       = a.formaOjo        || 'Almendrado';
-  document.getElementById('a-parpado').value         = a.parpado         || 'Normal';
-  document.getElementById('a-apertura').value        = a.apertura        || 'Normal';
-  document.getElementById('a-asimetria').checked     = !!a.asimetria;
-  document.getElementById('a-notas-izq').value       = a.notasIzq        || '';
-  document.getElementById('a-notas-der').value       = a.notasDer        || '';
+  document.getElementById('a-eje-cantal').value             = a.ejeCantal            || 'Neutro';
+  document.getElementById('a-flow-direccion').value         = a.flowDireccion        || '+1';
+  document.getElementById('a-tipologia-parpado').value      = a.tipologiaParpado     || 'Móvil Expuesto';
+  document.getElementById('a-espacio-orbital').value        = a.espacioOrbital       || 'Medio';
+  document.getElementById('a-distancia-interocular').value  = a.distanciaInterocular || 'Proporcionados';
+  document.getElementById('a-densidad-folicular').value     = a.densidadFolicular    || 'Media (3-4 capas)';
+  document.getElementById('a-estilo-solicitado').value      = a.estiloSolicitado     || 'Comercial Natural';
+  document.getElementById('a-asimetria-toggle').checked     = !!a.asimetriaActiva;
+  document.getElementById('a-eje-cantal-od').value          = a.ejeCantaloD          || 'Neutro';
+  document.getElementById('a-parpado-od').value             = a.parpadoOD            || 'Móvil Expuesto';
+  toggleAsimetriaPanel();
+  if (document.getElementById('a-notas-izq')) document.getElementById('a-notas-izq').value = a.notasIzq || '';
+  if (document.getElementById('a-notas-der')) document.getElementById('a-notas-der').value = a.notasDer || '';
   document.getElementById('a-efecto').value          = a.efecto          || 'Natural';
   document.getElementById('a-curvatura').value       = a.curvatura       || 'C';
   document.getElementById('a-largo-lagrimal').value  = a.largoLagrimal   || '';
@@ -1768,8 +2365,8 @@ function setCitaForm(a) {
   document.getElementById('a-tecnica').value         = a.tecnica         || 'Pelo a pelo';
   document.getElementById('a-material').value        = a.material        || '';
   document.getElementById('a-obs-diseno').value      = a.obsDiseno       || '';
-  document.getElementById('a-foto-antes').value      = a.fotoAntes       || '';
-  document.getElementById('a-foto-despues').value    = a.fotoDespues     || '';
+  setFotoPreview('antes',   a.fotoAntes   || '');
+  setFotoPreview('despues', a.fotoDespues || '');
   document.getElementById('a-autoriza').checked      = !!a.autorizaPublic;
   document.getElementById('a-prox-retoque').value    = a.proxRetoque     || '';
   document.getElementById('a-estado-retoque').value  = a.estadoRetoque   || 'Pendiente';
@@ -1888,6 +2485,551 @@ function renderCitasTable() {
   `).join('');
 }
 
+
+// ═══════════════════════════════════════════════
+//  MOTOR ÉLITE 2025-2026 — BARBOZA CARO
+//  Arquitectura de la Mirada · Reglas de Criterio
+// ═══════════════════════════════════════════════
+
+const MOTOR_ELITE = {
+
+  // ── 1. RESTRICCIONES DURAS (se ejecutan primero) ──────────────
+  restricciones: {
+
+    colapsoVisual(ejeCantal, flow) {
+      if (ejeCantal === 'Descendente' && (flow === '-1' || flow === '-2')) {
+        return {
+          activa: true,
+          curvasProhibidas: ['D','DD','U'],
+          regla: 'Contraste Óptico activado — curvas D/DD/U bloqueadas en comisura externa. Reducir 2mm en últimos 3-5mm del mapa.',
+          curvasPermitidas: ['M','L','LC','C','CC']
+        };
+      }
+      return { activa: false };
+    },
+
+    proteccionEncapotado(tipologia) {
+      const enc = tipologia === 'Encapotado Total' || tipologia === 'Encapotado Parcial/Lateral';
+      if (enc) {
+        return {
+          activa: true,
+          curvasPrioritarias: ['L','LC','M'],
+          razon: 'Base recta de transición limpia para sortear pliegue cutáneo sin fricción.',
+          restriccion: 'Prohibido C, CC, D convencionales en zona de pliegue'
+        };
+      }
+      return { activa: false };
+    },
+
+    orbitalEstrecho(espacioOrbital) {
+      if (espacioOrbital === 'Estrecho') {
+        return {
+          activa: true,
+          longitudMaxima: 11,
+          curvasRecomendadas: ['M','L'],
+          razon: 'Proyección frontal necesaria para evitar contacto con la ceja.'
+        };
+      }
+      return { activa: false };
+    },
+
+    asimetria(ejeCantOD, parpadoOD, ejeCantOI, parpadoOI) {
+      const diff = [];
+      if (ejeCantOD && ejeCantOD !== ejeCantOI) diff.push('eje cantal');
+      if (parpadoOD && parpadoOD !== parpadoOI) diff.push('tipología de párpado');
+      if (diff.length) {
+        return {
+          activa: true,
+          diferencias: diff,
+          instruccion: 'MAPA ASIMÉTRICO REGULADO — Prohibido duplicar el mapa. Diseños independientes por ojo.'
+        };
+      }
+      return { activa: false };
+    }
+  },
+
+  // ── 2. CÁLCULOS ───────────────────────────────────────────────
+  calculos: {
+
+    curvaturasPorZona(inp, rC, rE, rO) {
+      // Base por flow
+      const flowMap = { '-2':'L', '-1':'D', '0':'CC', '+1':'C' };
+      let base = flowMap[inp.flowDireccion] || 'CC';
+      if (rE.activa) base = 'L';
+
+      let lagrimal  = inp.distanciaInterocular === 'Juntos' ? 'B' : 'C';
+      let centro    = base;
+      let transicion= base;
+      let comisura  = inp.ejeCantal === 'Ascendente' ? 'CC' : base;
+
+      if (rC.activa) { comisura = 'M'; transicion = 'LC'; }
+      if (rO.activa) { comisura = 'M'; centro = 'L'; }
+      if (inp.tipologiaParpado === 'Monólido') { lagrimal='L'; centro='LC'; comisura='L'; }
+      if (inp.tipologiaParpado === 'Laxitud Edad') { comisura='CC'; centro='CC'; }
+
+      return { lagrimal, centro, transicion, comisura };
+    },
+
+    lashLayering(densidad, estilo, curvaturas, rO) {
+      const bases = {
+        'Comercial Natural':  { alta:11, media:10, baja:9 },
+        'Wet Set':            { alta:12, media:11, baja:10 },
+        'Efecto Lifting':     { alta:13, media:11, baja:9  },
+        'Wispy Estructurado': { alta:13, media:11, baja:9  },
+        'Anime/Manga':        { alta:14, media:12, baja:10 },
+        'Editorial':          { alta:14, media:12, baja:10 }
+      };
+      let { alta, media, baja } = bases[estilo] || { alta:12, media:11, baja:9 };
+      if (rO.activa) { alta=Math.min(alta,11); media=Math.min(media,10); }
+
+      const grosores = {
+        'Alta (4-5 capas)':  { g1:'0.05', g2:'0.07', g3:'0.07' },
+        'Media (3-4 capas)': { g1:'0.05', g2:'0.07', g3:'0.10' },
+        'Baja (2-3 capas)':  { g1:'0.03', g2:'0.05', g3:'0.07' }
+      };
+      const { g1, g2, g3 } = grosores[densidad] || grosores['Media (3-4 capas)'];
+
+      return {
+        capaAlta:  `${alta}mm · Curva ${curvaturas.comisura} · Ø ${g1}mm`,
+        capaMedia: `${media}mm · Curva ${curvaturas.centro} · Ø ${g2}mm`,
+        capaBaja:  `${baja}mm · Curva ${curvaturas.lagrimal} · Ø ${g3}mm`,
+        altaMm: alta, mediaMm: media, bajaMm: baja
+      };
+    },
+
+    weightBalance(densidad, tipologia, estilo) {
+      if (tipologia === 'Laxitud Edad') {
+        return { grosor:'0.03 – 0.05', tipoFibra:'Cónica ultra-fina o Flat', dimensionAbanico:'Abanico 2D-3D (peso mínimo — folículo débil)' };
+      }
+      const map = {
+        'Baja (2-3 capas)':  { grosor:'0.03 – 0.05', tipoFibra:'Cónica fina o Flat', dimensionAbanico:'Abanico 3D–5D máximo' },
+        'Media (3-4 capas)': { grosor:'0.05 – 0.07', tipoFibra: estilo==='Wet Set'?'Flat o Cónica':'Cónica estándar', dimensionAbanico:'Abanico 4D–6D' },
+        'Alta (4-5 capas)':  { grosor:'0.07 – 0.10', tipoFibra:'Cónica estándar o Pelo a pelo', dimensionAbanico: estilo==='Comercial Natural'?'Extensión individual':'Abanico 6D–8D' }
+      };
+      return map[densidad] || map['Media (3-4 capas)'];
+    },
+
+    anguloAcople(flow, tipologia) {
+      if (flow === '-2') return 'Envolvente — acople bajo redirige el pelo hacia arriba';
+      if (flow === '-1') return 'Inferior — compensar dirección descendente natural';
+      if (flow === '0')  return 'Lateral — pelo horizontal, acople neutro sin alterar dirección';
+      if (flow === '+1') return 'Superior — reforzar curvatura natural ascendente';
+      if (tipologia === 'Monólido') return 'Inferior — separar del párpado sin pliegue visible';
+      return 'Superior estándar';
+    },
+
+    zonificacionLongitudes(inp, rO, rC, estilo) {
+      const seq = {
+        'Comercial Natural':  [9,10,11,11,10,9],
+        'Wet Set':            [9,10,12,12,11,10],
+        'Efecto Lifting':     [8,10,12,13,11,9],
+        'Wispy Estructurado': [9,10,12,13,12,10],
+        'Anime/Manga':        [9,11,13,14,13,11],
+        'Editorial':          [9,11,13,14,12,10]
+      };
+      let s = [...(seq[estilo] || [9,10,11,12,11,10])];
+
+      if (inp.ejeCantal === 'Descendente') { s[4]+=1; s[5]+=1; }
+      if (inp.ejeCantal === 'Ascendente')  { s[4]-=1; s[5]-=1; }
+      if (inp.distanciaInterocular === 'Juntos')    { s[0]-=1; s[1]-=1; s[4]+=1; s[5]+=1; }
+      if (inp.distanciaInterocular === 'Separados') { s[0]+=1; s[1]+=1; s[4]-=1; s[5]-=1; }
+      if (rO.activa) s = s.map(v => Math.min(v, rO.longitudMaxima));
+      if (rC.activa) { s[4]=Math.max(s[4]-2,s[2]-2); s[5]=Math.max(s[5]-2,s[2]-2); }
+      s = s.map(v => Math.max(7, Math.min(16, v)));
+      return { seq: s, texto: s.join('–') + 'mm' };
+    }
+  },
+
+  // ── 3. NOMENCLATURA PREMIUM ───────────────────────────────────
+  nomenclatura: {
+
+    nombreDiseno(inp, rC, rE) {
+      const pref = {
+        'Comercial Natural':'Soft Natural', 'Wet Set':'Wet Set Couture',
+        'Efecto Lifting':'Lifting Effect', 'Wispy Estructurado':'Wispy Signature',
+        'Anime/Manga':'Manga Edition', 'Editorial':'Editorial Élite'
+      };
+      let mod = '';
+      if (inp.ejeCantal==='Descendente' && rC.activa) mod=' con Contraste Óptico';
+      else if (inp.ejeCantal==='Ascendente')           mod=' Fox Lift';
+      if (rE.activa)                                   mod+=' Hooded Precision';
+      if (inp.tipologiaParpado==='Monólido')           mod+=' Open Eye';
+      if (inp.tipologiaParpado==='Laxitud Edad')       mod+=' Anti-Aging Feather';
+      return (pref[inp.estiloSolicitado]||inp.estiloSolicitado) + mod;
+    },
+
+    tendenciaGeografica(estilo) {
+      const t = {
+        'Wet Set':           'Inspiración USA — ligereza, brillo y textura abierta sin peso visual excesivo.',
+        'Wispy Estructurado':'Estilo Europa del Este — precisión milimétrica, capas definidas y contraste calculado.',
+        'Anime/Manga':       'Estilo Asiático — apertura máxima del ojo, separación de capas y efecto dramatismo inocente.',
+        'Editorial':         'Estilo Brasil — densidad limpia, volumen envolvente sin perder firmeza del diseño.',
+        'Efecto Lifting':    'Fusión Europa del Este + Brasil — elevación estructurada con densidad progresiva.',
+        'Comercial Natural': 'Estilo Universal — base neutra adaptada a la morfología específica de la clienta.'
+      };
+      return t[estilo] || t['Comercial Natural'];
+    },
+
+    justificacionVisual(inp, rC, rE, rO) {
+      let txt = `Diseño que equilibra el rostro compensando el eje cantal ${inp.ejeCantal.toLowerCase()} con arquitectura de mapeo estratégico.`;
+      if (rC.activa) txt += ` La Regla de Contraste Óptico se activa: curvas M/L en el canto externo evitan el colapso visual por la combinación de eje descendente y flow negativo (${inp.flowDireccion}).`;
+      if (rE.activa) txt += ` Párpado ${inp.tipologiaParpado.toLowerCase()} tratado con curvas de base recta (L, LC, M) para garantizar despeje del pliegue cutáneo y retención óptima.`;
+      if (rO.activa) txt += ` Espacio orbital estrecho: longitudes limitadas a 11mm y proyección frontal para prevenir contacto con la ceja.`;
+      txt += ` El resultado: una mirada que armoniza sin endurecer las facciones.`;
+      return txt;
+    },
+
+    analisisCritico(inp) {
+      let txt = `Eje cantal ${inp.ejeCantal} · Flow ${inp.flowDireccion} · Párpado ${inp.tipologiaParpado} · Espacio orbital ${inp.espacioOrbital} · Distancia interocular ${inp.distanciaInterocular} · Densidad folicular ${inp.densidadFolicular}.`;
+      const alertas = [];
+      if (inp.ejeCantal==='Descendente'&&(inp.flowDireccion==='-1'||inp.flowDireccion==='-2'))
+        alertas.push('RIESGO CRÍTICO: Eje descendente + flow negativo → colapso visual en canto externo. Protocolo de Contraste Óptico activado.');
+      if (inp.tipologiaParpado==='Encapotado Total')
+        alertas.push('Párpado encapotado total: alta probabilidad de fricción cutánea con curvas C/CC estándar.');
+      if (inp.densidadFolicular==='Baja (2-3 capas)')
+        alertas.push('Densidad folicular baja: Weight Balance reducido. Fibras ultra-finas obligatorias.');
+      return { base: txt, alertas };
+    },
+
+    advertencias(inp, rC, rE, rO) {
+      const lista = [];
+      if (rC.activa) {
+        lista.push('NO usar curvas D, DD o U en la comisura externa — generarán caída visual en el eje descendente.');
+        lista.push('Reducir 2mm en los últimos 3–5 puntos del mapa (canto externo extremo). La longitud máxima nunca va en el lateral.');
+      }
+      if (rE.activa) {
+        lista.push('NO aplicar curvatura C o CC convencional bajo párpado encapotado — desaparecerá bajo el pliegue.');
+        lista.push('Verificar despeje del pliegue antes de sellar: deslizar el dedo sobre el párpado cerrado para confirmar cero contacto.');
+      }
+      if (rO.activa)
+        lista.push('NO exceder 11mm — el espacio orbital estrecho genera contacto directo con la ceja y compromete la retención.');
+      if (inp.tipologiaParpado==='Monólido')
+        lista.push('Romper regla clásica: NO usar curvatura C con párpado monólido. Sin pliegue visible, la curva se aplana completamente.');
+      if (inp.tipologiaParpado==='Laxitud Edad') {
+        lista.push('NO aplicar volumen ruso pesado — el folículo con laxitud no soporta el peso sin pérdida prematura de retención.');
+        lista.push('Priorizar Lash Layering ultra-liviano. Menos espiga, más precisión.');
+      }
+      if (inp.densidadFolicular==='Baja (2-3 capas)')
+        lista.push('NO construir abanicos densos (más de 3D) — la base folicular no sustenta el peso sin tracción sobre el pelo natural.');
+      if (!lista.length)
+        lista.push('Perfil morfológico favorable. Sin restricciones críticas. Aplicar el diseño con total libertad técnica dentro del mapping propuesto.');
+      return lista;
+    }
+  }
+};
+
+// ── Función principal ─────────────────────────────────────────────
+function toggleAsimetriaPanel() {
+  const on = document.getElementById('a-asimetria-toggle').checked;
+  document.getElementById('asimetria-panel').style.display = on ? 'block' : 'none';
+}
+
+function analizarVisagismo() {
+  const inp = {
+    ejeCantal:            document.getElementById('a-eje-cantal').value,
+    flowDireccion:        document.getElementById('a-flow-direccion').value,
+    tipologiaParpado:     document.getElementById('a-tipologia-parpado').value,
+    espacioOrbital:       document.getElementById('a-espacio-orbital').value,
+    distanciaInterocular: document.getElementById('a-distancia-interocular').value,
+    densidadFolicular:    document.getElementById('a-densidad-folicular').value,
+    estiloSolicitado:     document.getElementById('a-estilo-solicitado').value,
+    asimetriaActiva:      document.getElementById('a-asimetria-toggle').checked
+  };
+
+  // Restricciones duras
+  const rC = MOTOR_ELITE.restricciones.colapsoVisual(inp.ejeCantal, inp.flowDireccion);
+  const rE = MOTOR_ELITE.restricciones.proteccionEncapotado(inp.tipologiaParpado);
+  const rO = MOTOR_ELITE.restricciones.orbitalEstrecho(inp.espacioOrbital);
+  const rA = inp.asimetriaActiva
+    ? MOTOR_ELITE.restricciones.asimetria(
+        document.getElementById('a-eje-cantal-od').value,
+        document.getElementById('a-parpado-od').value,
+        inp.ejeCantal, inp.tipologiaParpado)
+    : { activa: false };
+
+  // Cálculos
+  const curvaturas   = MOTOR_ELITE.calculos.curvaturasPorZona(inp, rC, rE, rO);
+  const layering     = MOTOR_ELITE.calculos.lashLayering(inp.densidadFolicular, inp.estiloSolicitado, curvaturas, rO);
+  const weightBal    = MOTOR_ELITE.calculos.weightBalance(inp.densidadFolicular, inp.tipologiaParpado, inp.estiloSolicitado);
+  const angulo       = MOTOR_ELITE.calculos.anguloAcople(inp.flowDireccion, inp.tipologiaParpado);
+  const zonif        = MOTOR_ELITE.calculos.zonificacionLongitudes(inp, rO, rC, inp.estiloSolicitado);
+
+  // Nomenclatura
+  const nombre       = MOTOR_ELITE.nomenclatura.nombreDiseno(inp, rC, rE);
+  const tendencia    = MOTOR_ELITE.nomenclatura.tendenciaGeografica(inp.estiloSolicitado);
+  const justif       = MOTOR_ELITE.nomenclatura.justificacionVisual(inp, rC, rE, rO);
+  const analisis     = MOTOR_ELITE.nomenclatura.analisisCritico(inp);
+  const advertencias = MOTOR_ELITE.nomenclatura.advertencias(inp, rC, rE, rO);
+
+  const reporte = {
+    inp, nombre, tendencia, justif, analisis, advertencias,
+    curvaturas, layering, weightBal, angulo, zonif, rC, rE, rO, rA
+  };
+
+  _renderReporteElite(reporte);
+  _aplicarDisenoElite(reporte);
+  document.getElementById('resultado-visagismo').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function _renderReporteElite(r) {
+  const { inp, nombre, tendencia, justif, analisis, advertencias,
+          curvaturas, layering, weightBal, angulo, zonif, rC, rE, rO, rA } = r;
+
+  // Mapa visual SVG barras
+  const MAX_H = 52;
+  const allMm = zonif.seq;
+  const maxMm = Math.max(...allMm);
+  const mapaBarras = allMm.map(mm => {
+    const h = Math.round((mm/maxMm)*MAX_H);
+    return `<div class="elite-mapa-pin"><div class="elite-mapa-bar" style="height:${h}px"></div><div class="elite-mapa-mm">${mm}</div></div>`;
+  }).join('');
+
+  // Alertas críticas
+  const alertasHTML = analisis.alertas.map(a =>
+    `<div class="elite-alerta-critica">⚠ ${a}</div>`).join('');
+
+  // Asimetría
+  const asimHTML = rA.activa
+    ? `<div class="elite-alerta-critica">⚡ Mapa asimétrico activado. Diferencias en: ${rA.diferencias.join(', ')}. ${rA.instruccion}</div>`
+    : `<div class="elite-alerta-info">✓ Morfología simétrica — mapa único aplicable a ambos ojos.</div>`;
+
+  // Advertencias
+  const advertHTML = advertencias.map((a,i) => {
+    const ok = a.startsWith('Perfil morfológico favorable');
+    return `<div class="advertencia-item${ok?' advertencia-ok':''}"><span class="advertencia-icon">${ok?'✓':'◆'}</span><span>${a}</span></div>`;
+  }).join('');
+
+  document.getElementById('resultado-visagismo').innerHTML = `
+    <div class="reporte-elite">
+      <div class="reporte-elite-header">
+        <div>
+          <div class="reporte-elite-marca">Barboza Caro · Arquitectura de la Mirada</div>
+          <div class="reporte-elite-titulo">Diagnóstico de Visagismo Élite</div>
+        </div>
+        <div class="reporte-elite-nombre">
+          <div class="reporte-elite-nombre-label">Diseño generado</div>
+          <div class="reporte-elite-nombre-value">${nombre}</div>
+        </div>
+      </div>
+      <div class="reporte-elite-body">
+
+        <!-- BLOQUE 1: INGENIERÍA FACIAL -->
+        <div class="bloque-elite">
+          <div class="bloque-elite-head">
+            <div class="bloque-elite-num">1</div>
+            <div class="bloque-elite-label">Ingeniería Facial y Diagnóstico Anatómico</div>
+          </div>
+          <div class="bloque-elite-body">
+            <div class="elite-texto">${analisis.base}</div>
+            ${alertasHTML}
+            ${asimHTML}
+          </div>
+        </div>
+
+        <!-- BLOQUE 2: ARQUITECTURA DE MIRADA -->
+        <div class="bloque-elite">
+          <div class="bloque-elite-head">
+            <div class="bloque-elite-num">2</div>
+            <div class="bloque-elite-label">Arquitectura de la Mirada · Eye Styling 2025-2026</div>
+          </div>
+          <div class="bloque-elite-body">
+            <div class="elite-grid">
+              <div class="elite-item full">
+                <div class="elite-item-label">Denominación del Diseño</div>
+                <div class="elite-item-value gold">${nombre}</div>
+              </div>
+              <div class="elite-item full">
+                <div class="elite-item-label">Tendencia Geográfica Aplicada</div>
+                <div class="elite-item-value">${tendencia}</div>
+              </div>
+              <div class="elite-item full">
+                <div class="elite-item-label">Justificación Visual y Psicológica</div>
+                <div class="elite-item-value" style="font-weight:400;font-size:12px;line-height:1.7">${justif}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BLOQUE 3: MAPEO ESTRATÉGICO -->
+        <div class="bloque-elite">
+          <div class="bloque-elite-head">
+            <div class="bloque-elite-num">3</div>
+            <div class="bloque-elite-label">Mapeo Estratégico Avanzado · Lash Layering</div>
+          </div>
+          <div class="bloque-elite-body">
+            <div class="elite-grid">
+              <div class="elite-item full">
+                <div class="elite-item-label">Zonificación de Longitudes (lagrimal → comisura)</div>
+                <div class="elite-item-value gold">${zonif.texto}</div>
+              </div>
+            </div>
+            <div style="background:var(--bg3);border-radius:var(--radius);padding:14px 10px;margin:2px 0">
+              <div class="elite-item-label" style="text-align:center;margin-bottom:10px">Mapa Visual · Punto de Transición Dinámica</div>
+              <div class="elite-mapa-seq">${mapaBarras}</div>
+            </div>
+            <div class="elite-grid cols-3">
+              <div class="elite-item"><div class="elite-item-label">Zona Lagrimal</div><div class="elite-item-value">Curva ${curvaturas.lagrimal}</div></div>
+              <div class="elite-item"><div class="elite-item-label">Zona Centro</div><div class="elite-item-value">Curva ${curvaturas.centro}</div></div>
+              <div class="elite-item"><div class="elite-item-label">Zona Transición</div><div class="elite-item-value gold">Curva ${curvaturas.transicion}</div></div>
+              <div class="elite-item full"><div class="elite-item-label">Zona Comisura Externa</div><div class="elite-item-value gold">Curva ${curvaturas.comisura}${rC.activa?' ← Contraste Óptico':''}</div></div>
+            </div>
+            <div class="elite-layering">
+              <div class="elite-item-label" style="padding-left:2px">Estrategia Lash Layering por Capas</div>
+              <div class="elite-layer-row alta">
+                <div class="elite-layer-name">Capa Alta</div>
+                <div class="elite-layer-value">${layering.capaAlta}</div>
+              </div>
+              <div class="elite-layer-row media">
+                <div class="elite-layer-name">Capa Media</div>
+                <div class="elite-layer-value">${layering.capaMedia}</div>
+              </div>
+              <div class="elite-layer-row baja">
+                <div class="elite-layer-name">Capa Baja</div>
+                <div class="elite-layer-value">${layering.capaBaja}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BLOQUE 4: PROTOCOLO DE RETENCIÓN -->
+        <div class="bloque-elite">
+          <div class="bloque-elite-head">
+            <div class="bloque-elite-num">4</div>
+            <div class="bloque-elite-label">Protocolo de Retención · Salud Folicular · Weight Balance</div>
+          </div>
+          <div class="bloque-elite-body">
+            <div class="elite-grid">
+              <div class="elite-item">
+                <div class="elite-item-label">Grosor Seguro</div>
+                <div class="elite-item-value gold">${weightBal.grosor}mm</div>
+              </div>
+              <div class="elite-item">
+                <div class="elite-item-label">Tipo de Fibra</div>
+                <div class="elite-item-value">${weightBal.tipoFibra}</div>
+              </div>
+              <div class="elite-item full">
+                <div class="elite-item-label">Dimensionamiento del Abanico / Espiga</div>
+                <div class="elite-item-value">${weightBal.dimensionAbanico}</div>
+              </div>
+              <div class="elite-item full">
+                <div class="elite-item-label">Ángulo de Acople Estratégico</div>
+                <div class="elite-item-value gold">${angulo}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BLOQUE 5: ADVERTENCIAS AL ARTISTA -->
+        <div class="bloque-elite">
+          <div class="bloque-elite-head">
+            <div class="bloque-elite-num">5</div>
+            <div class="bloque-elite-label">Advertencias al Artista · Reglas Clásicas a Romper</div>
+          </div>
+          <div class="bloque-elite-body">
+            <div class="advertencia-lista">${advertHTML}</div>
+          </div>
+        </div>
+
+        <button class="btn-aplicar" onclick="_aplicarDisenoElite(window._ultimoReporte)">
+          ✦ Aplicar diseño al formulario
+        </button>
+
+      </div>
+    </div>`;
+
+  window._ultimoReporte = r;
+}
+
+function _aplicarDisenoElite(r) {
+  if (!r) return;
+  const { layering, curvaturas, zonif } = r;
+  // Extraer mm de capa media como longitudes base
+  const altaMm  = layering.altaMm;
+  const mediaMm = layering.mediaMm;
+  const bajaMm  = layering.bajaMm;
+
+  document.getElementById('a-curvatura').value        = curvaturas.centro;
+  document.getElementById('a-largo-lagrimal').value   = `${bajaMm}mm`;
+  document.getElementById('a-largo-centro').value     = `${mediaMm}mm`;
+  document.getElementById('a-largo-comisura').value   = `${altaMm}mm`;
+
+  // Grosor desde weight balance
+  const wb = r.weightBal.grosor.split('–')[0].trim();
+  const gv = wb.replace('mm','').trim();
+  const gOptions = ['0.03','0.05','0.07','0.10','0.15','Mix'];
+  const closest = gOptions.find(o => o === gv) || '0.07';
+  document.getElementById('a-grosor').value = closest;
+
+  // Técnica según densidad + estilo
+  const densBaja = r.inp.densidadFolicular === 'Baja (2-3 capas)';
+  const esWet    = r.inp.estiloSolicitado  === 'Wet Set';
+  const esAnime  = r.inp.estiloSolicitado  === 'Anime/Manga';
+  let tecnica = 'Volumen ruso';
+  if (densBaja)  tecnica = 'Pelo a pelo';
+  if (esWet)     tecnica = 'Wet look';
+  if (esAnime)   tecnica = 'Volumen mega';
+  document.getElementById('a-tecnica').value = tecnica;
+
+  document.getElementById('a-efecto').closest('.form-grid')
+    .scrollIntoView({ behavior:'smooth', block:'start' });
+  toast('✦ Diseño élite aplicado al formulario', 'success');
+}
+
+// ── Compatibilidad backward (función antigua referenciada en btn) ──
+function _aplicarDiseno(r) { _aplicarDisenoElite(r); }
+
+// ─── LEGACY STUB ───────────────────────────────────────────────
+function analizarVisagismoLegacy() {}
+
+// ═══════════════════════════════════════════════
+//  FOTOS — GALERÍA / CÁMARA
+// ═══════════════════════════════════════════════
+
+function handleFoto(tipo, input) {
+  const file = input.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      // Comprimir a máx 800px, calidad 0.75
+      const canvas = document.createElement('canvas');
+      const MAX = 800;
+      let w = img.width, h = img.height;
+      if (w > h && w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
+      else if (h > MAX)     { w = Math.round(w * MAX / h); h = MAX; }
+      canvas.width = w;
+      canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      const b64 = canvas.toDataURL('image/jpeg', 0.75);
+      setFotoPreview(tipo, b64);
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+  // Limpiar input para permitir reselección del mismo archivo
+  input.value = '';
+}
+
+function setFotoPreview(tipo, b64) {
+  const hiddenId  = tipo === 'antes' ? 'a-foto-antes'   : 'a-foto-despues';
+  const previewId = tipo === 'antes' ? 'preview-antes'  : 'preview-despues';
+  const clearId   = tipo === 'antes' ? 'clear-antes'    : 'clear-despues';
+
+  document.getElementById(hiddenId).value = b64 || '';
+
+  const box = document.getElementById(previewId);
+  if (b64) {
+    box.innerHTML = `<img src="${b64}" alt="foto ${tipo}"><button type="button" class="foto-clear-btn visible" onclick="clearFoto('${tipo}')">✕</button>`;
+  } else {
+    box.innerHTML = `<span class="foto-empty">Sin foto</span>`;
+  }
+}
+
+function clearFoto(tipo) {
+  setFotoPreview(tipo, '');
+}
 
 // ═══════════════════════════════════════════════
 //  MÓDULO 3 — ALERTAS / RECORDATORIOS
@@ -2111,9 +3253,9 @@ const CSV_HEADERS_CLIENTAS = [
 
 const CSV_HEADERS_CITAS = [
   'ID Cita','Clienta','Fecha Cita','Tipo de Servicio','Monto Cobrado','Método de Pago',
-  'Dir. Lagrimal','Dir. Centro','Dir. Comisura','Alineación y Eje',
-  'Espacio Intraocular','Forma del Ojo','Tipo de Párpado','Apertura Párpado','Asimetría',
-  'Notas Ojo Izquierdo','Notas Ojo Derecho',
+  'Eje Cantal','Flow de Pestañas','Tipología Párpado','Espacio Orbital','Distancia Interocular',
+  'Densidad Folicular','Estilo Solicitado','Asimetría OD/OI','Eje Cantal OD','Párpado OD',
+  'Notas OI','Notas OD',
   'Efecto / Mapa','Curvatura','Largo Lagrimal (mm)','Largo Centro (mm)','Largo Comisura (mm)',
   'Grosor / Volumen','Técnica Aplicada','Material / Marca','Observaciones Diseño',
   'Foto Antes','Foto Después','Autoriza Publicación',
@@ -2131,12 +3273,13 @@ function clientaToRow(c) {
 function citaToRow(a) {
   return [
     a.citaId, a.clienta, a.fecha, a.servicio, a.monto, a.pago,
-    a.dirLagrimal, a.dirCentro, a.dirComisura, a.alineacion,
-    a.espacio, a.formaOjo, a.parpado, a.apertura,
-    a.asimetria ? 'Sí' : 'No', a.notasIzq, a.notasDer,
+    a.ejeCantal, a.flowDireccion, a.tipologiaParpado, a.espacioOrbital, a.distanciaInterocular,
+    a.densidadFolicular, a.estiloSolicitado,
+    a.asimetriaActiva ? 'Sí' : 'No', a.ejeCantaloD, a.parpadoOD,
+    a.notasIzq, a.notasDer,
     a.efecto, a.curvatura, a.largoLagrimal, a.largoCentro, a.largoComisura,
     a.grosor, a.tecnica, a.material, a.obsDiseno,
-    a.fotoAntes, a.fotoDespues,
+    a.fotoAntes ? '[foto]' : '', a.fotoDespues ? '[foto]' : '',
     a.autorizaPublic ? 'Sí' : 'No',
     a.proxRetoque, a.estadoRetoque, a.satisfaccion, a.creadaEn
   ].map(escapeCSV).join(',');
