@@ -610,6 +610,67 @@
     justify-content: flex-end;
   }
 
+  /* ─── RECORDATORIO ───────────────────────────── */
+  .btn-recordatorio {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: #25D366;
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    margin-top: 8px;
+    width: 100%;
+    justify-content: center;
+    letter-spacing: 0.3px;
+  }
+  .btn-recordatorio:hover { opacity: 0.85; }
+
+  .recordatorio-modal { max-width: 460px; }
+
+  .rec-opcion {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-top: 10px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .rec-opcion:hover { border-color: var(--accent); background: var(--accent-glow); }
+  .rec-opcion-icon {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .rec-opcion-body { flex: 1; }
+  .rec-opcion-title { font-weight: 700; font-size: 13px; }
+  .rec-opcion-sub   { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .rec-preview {
+    background: var(--bg3);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .rec-preview strong { color: var(--text); }
+
   /* ─── TOAST ──────────────────────────────────── */
   #toast {
     position: fixed;
@@ -1442,7 +1503,7 @@
     <div class="logo-brand">
       <span class="logo-name">BARBOZA CARO</span>
       <span class="logo-rule"></span>
-      <span class="logo-sub">Studio Manager Pro · Barranquilla</span>
+      <span class="logo-sub">Studio Manager Pro</span>
     </div>
   </div>
   <div class="header-right">
@@ -1670,7 +1731,7 @@
         </div>
         <div class="form-grid cols-3">
           <div class="form-group">
-            <label>Eje Cantal <span class="required">*</span></label>
+            <label>Alineación del Eje <span class="required">*</span></label>
             <select id="a-eje-cantal">
               <option value="Neutro">Neutro</option>
               <option value="Ascendente">Ascendente</option>
@@ -1678,12 +1739,27 @@
             </select>
           </div>
           <div class="form-group">
-            <label>Flow de Pestañas (Dirección Natural)</label>
-            <select id="a-flow-direccion">
-              <option value="+1">+1 · Curvatura natural hacia arriba</option>
-              <option value="0">0 · Horizontales</option>
-              <option value="-1">-1 · Rectas / Hacia abajo</option>
-              <option value="-2">-2 · Hacia abajo extrema</option>
+            <label>Dirección de Pestañas Naturales — Lagrimal</label>
+            <select id="a-dir-lagrimal">
+              <option value="Arriba">Arriba</option>
+              <option value="Recto">Recto</option>
+              <option value="Abajo">Abajo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Dirección de Pestañas Naturales — Centro</label>
+            <select id="a-dir-centro">
+              <option value="Arriba">Arriba</option>
+              <option value="Recto">Recto</option>
+              <option value="Abajo">Abajo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Dirección de Pestañas Naturales — Comisura</label>
+            <select id="a-dir-comisura">
+              <option value="Arriba">Arriba</option>
+              <option value="Recto">Recto</option>
+              <option value="Abajo">Abajo</option>
             </select>
           </div>
           <div class="form-group">
@@ -1747,6 +1823,21 @@
           </div>
           <div class="form-grid cols-2" style="margin-top:14px">
             <div class="form-group">
+              <label>¿Cuál ojo es más grande?</label>
+              <select id="a-asimetria-ojo-mayor">
+                <option value="Iguales">Iguales (sin diferencia de tamaño)</option>
+                <option value="OD">OD más grande</option>
+                <option value="OI">OI más grande</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Tipo de corrección</label>
+              <select id="a-asimetria-tipo">
+                <option value="mismo">Mismo diseño — −1mm en ojo mayor</option>
+                <option value="diferente">Diseños independientes — mismas longitudes</option>
+              </select>
+            </div>
+            <div class="form-group">
               <label>Eje Cantal — Ojo Derecho (OD)</label>
               <select id="a-eje-cantal-od">
                 <option value="Neutro">Neutro</option>
@@ -1790,26 +1881,47 @@
         <div class="card-title" style="margin-bottom:16px"><span class="card-title-dot"></span>Diseño Aplicado</div>
         <div class="form-grid cols-3">
           <div class="form-group">
-            <label>Efecto / Mapa Elegido</label>
-            <select id="a-efecto">
+            <label>Diseño (Mapa)</label>
+            <select id="a-diseno">
+              <option value="Open">Open (Ojo abierto)</option>
               <option value="Natural">Natural</option>
-              <option value="Cat eye">Cat eye (Ojo de gato)</option>
-              <option value="Doll eye">Doll eye (Ojo de muñeca)</option>
-              <option value="Fox eye">Fox eye (Ojo de zorro)</option>
-              <option value="Squirrel">Squirrel (Ardilla)</option>
-              <option value="Wet look">Wet look (Efecto mojado)</option>
+              <option value="Ardilla">Ardilla (Squirrel)</option>
+              <option value="Foxy">Foxy (Cola de zorro)</option>
+              <option value="Cat">Cat eye (Ojo de gato)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Efecto / Acabado</label>
+            <select id="a-efecto" onchange="mostrarCriterioEfecto()">
+              <option value="Wet">Wet (Mojado)</option>
+              <option value="Húmedo">Húmedo (Wet light)</option>
+              <option value="Wispy">Wispy (Puntas sueltas)</option>
+              <option value="Anime">Anime / Manga</option>
+              <option value="Desordenado">Desordenado (Textured)</option>
+              <option value="Kim K">Kim K (Volumen total)</option>
+              <option value="Kylie">Kylie (Cat + Volumen)</option>
+              <option value="Foxy">Foxy (efecto cola)</option>
+              <option value="Liner">Liner (Efecto delineador)</option>
+              <option value="Color">Color (Extensiones de color)</option>
+              <option value="Ombré">Ombré (Degradado de color)</option>
               <option value="Personalizado">Personalizado</option>
             </select>
+            <!-- Panel criterio técnico -->
+            <div id="criterio-efecto" style="display:none; margin-top:8px; background:var(--bg3); border-left:3px solid var(--accent); border-radius:0 var(--radius) var(--radius) 0; padding:10px 12px; font-size:11px; color:var(--text2); line-height:1.7;"></div>
           </div>
           <div class="form-group">
             <label>Curvatura</label>
             <select id="a-curvatura">
-              <option value="C">C</option>
-              <option value="CC">CC</option>
-              <option value="D">D</option>
-              <option value="L">L</option>
-              <option value="LC">LC</option>
-              <option value="M">M</option>
+              <option value="J">J — suave mínima</option>
+              <option value="B">B — suave intermedia</option>
+              <option value="C">C — suave y natural</option>
+              <option value="CC">CC — rizada uniforme</option>
+              <option value="D">D — fuerte y notoria</option>
+              <option value="LC">LC — párpado caído</option>
+              <option value="M">M — recta/foxy</option>
+              <option value="L">L — crece hacia abajo</option>
+              <option value="LJ">LJ — descendente var. J</option>
+              <option value="LB">LB — descendente var. B</option>
             </select>
           </div>
           <div class="form-group">
@@ -1837,14 +1949,13 @@
           </div>
           <div class="form-group">
             <label>Técnica Aplicada</label>
-            <select id="a-tecnica">
+            <select id="a-tecnica" onchange="toggleTecnicaPersonalizado()">
               <option value="Pelo a pelo">Pelo a pelo</option>
-              <option value="Volumen ruso">Volumen ruso</option>
-              <option value="Volumen mega">Volumen mega</option>
-              <option value="Híbrido">Híbrido</option>
-              <option value="Wet look">Wet look</option>
               <option value="Fibras tecnológicas">Fibras tecnológicas</option>
+              <option value="Volumen o Mega Volumen">Volumen o Mega Volumen</option>
+              <option value="Personalizado">Personalizado</option>
             </select>
+            <input type="text" id="a-tecnica-personalizado" placeholder="Describe la técnica..." style="display:none; margin-top:6px; width:100%; background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius); color:var(--text1); padding:8px 10px; font-size:13px;">
           </div>
           <div class="form-group">
             <label>Material / Marca Usada</label>
@@ -1917,6 +2028,9 @@
           <div class="form-group">
             <label>Fecha Próximo Retoque</label>
             <input type="date" id="a-prox-retoque">
+            <button type="button" class="btn-recordatorio" onclick="abrirModalRecordatorio()" title="Generar recordatorio para la clienta">
+              📅 Enviar recordatorio a la clienta
+            </button>
           </div>
           <div class="form-group">
             <label>Estado del Retoque</label>
@@ -2023,6 +2137,48 @@
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════ MODAL RECORDATORIO -->
+<div class="modal-overlay" id="modal-recordatorio" onclick="if(event.target===this)cerrarModalRecordatorio()">
+  <div class="modal recordatorio-modal">
+    <h3>📅 Recordatorio de Retoque</h3>
+    <p id="rec-subtitulo" style="margin-bottom:4px"></p>
+
+    <!-- Preview del mensaje -->
+    <div class="rec-preview" id="rec-preview-texto"></div>
+
+    <!-- Opción WhatsApp -->
+    <a class="rec-opcion" id="rec-btn-whatsapp" href="#" target="_blank" rel="noopener">
+      <div class="rec-opcion-icon" style="background:#DCF8C6">📱</div>
+      <div class="rec-opcion-body">
+        <div class="rec-opcion-title">Enviar por WhatsApp</div>
+        <div class="rec-opcion-sub">Abre WhatsApp con el mensaje listo para copiar y el enlace del calendario</div>
+      </div>
+    </a>
+
+    <!-- Opción Google Calendar -->
+    <a class="rec-opcion" id="rec-btn-gcal" href="#" target="_blank" rel="noopener">
+      <div class="rec-opcion-icon" style="background:#E8F0FE">📆</div>
+      <div class="rec-opcion-body">
+        <div class="rec-opcion-title">Agregar a Google Calendar</div>
+        <div class="rec-opcion-sub">Crea el evento en el calendario de la clienta (ella lo abre desde su celular)</div>
+      </div>
+    </a>
+
+    <!-- Opción ICS (iPhone / Mac) -->
+    <a class="rec-opcion" id="rec-btn-ics" href="#" download="">
+      <div class="rec-opcion-icon" style="background:#F0F0F0">🍎</div>
+      <div class="rec-opcion-body">
+        <div class="rec-opcion-title">Descargar archivo .ics</div>
+        <div class="rec-opcion-sub">Para iPhone, Mac o Outlook — la clienta hace doble clic y queda guardado</div>
+      </div>
+    </a>
+
+    <div class="modal-actions" style="margin-top:16px">
+      <button class="btn btn-secondary" onclick="cerrarModalRecordatorio()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════════════════════════════════════════ TOAST -->
 <div id="toast"></div>
 
@@ -2117,6 +2273,221 @@ function openModal(title, msg, onConfirm) {
 
 function closeModal() {
   document.getElementById('modal-overlay').classList.remove('open');
+}
+
+// ═══════════════════════════════════════════════
+//  RECORDATORIO DE RETOQUE
+// ═══════════════════════════════════════════════
+
+function abrirModalRecordatorio() {
+  const fecha = document.getElementById('a-prox-retoque').value;
+  if (!fecha) {
+    toast('Primero selecciona la fecha del próximo retoque', 'info');
+    return;
+  }
+
+  // Datos de la cita
+  const clientaSel  = document.getElementById('a-clienta');
+  const clientaNom  = clientaSel.options[clientaSel.selectedIndex]?.text || 'tu clienta';
+  const servicio    = document.getElementById('a-servicio') ? document.getElementById('a-servicio').value : 'retoque';
+
+  // Formatear fecha legible
+  const [y, m, d]   = fecha.split('-');
+  const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const fechaLeg    = `${parseInt(d)} de ${meses[parseInt(m)-1]} de ${y}`;
+
+  // Título del evento
+  const titulo      = `Retoque de Pestañas — Barboza Caro`;
+  const descripcion = `Tu cita de ${servicio} en Barboza Caro está lista 💕\n\nFecha: ${fechaLeg}\nEstudio: Barboza Caro\n\nLlega 5 minutos antes. Sin maquillaje en ojos.`;
+
+  // ── Google Calendar link ──────────────────────
+  const fechaGcal   = fecha.replace(/-/g, '');                // YYYYMMDD
+  const gcalUrl     = `https://calendar.google.com/calendar/render?action=TEMPLATE`
+    + `&text=${encodeURIComponent(titulo)}`
+    + `&dates=${fechaGcal}/${fechaGcal}`
+    + `&details=${encodeURIComponent(descripcion)}`
+    + `&location=${encodeURIComponent('Barboza Caro')}`;
+
+  // ── ICS (iPhone / Mac / Outlook) ─────────────
+  const icsContent  = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Barboza Caro Studio Manager//ES',
+    'BEGIN:VEVENT',
+    `UID:bc-retoque-${Date.now()}@barbozacaro`,
+    `DTSTAMP:${new Date().toISOString().replace(/[-:.]/g,'').slice(0,15)}Z`,
+    `DTSTART;VALUE=DATE:${fechaGcal}`,
+    `DTEND;VALUE=DATE:${fechaGcal}`,
+    `SUMMARY:${titulo}`,
+    `DESCRIPTION:${descripcion.replace(/\n/g,'\\n')}`,
+    'LOCATION:Barboza Caro',
+    'BEGIN:VALARM',
+    'TRIGGER:-P1D',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:Recordatorio: retoque mañana 💕',
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+  const icsBlob     = new Blob([icsContent], { type: 'text/calendar' });
+  const icsUrl      = URL.createObjectURL(icsBlob);
+
+  // ── Mensaje WhatsApp ──────────────────────────
+  const msgWA = `Hola 💕 Te escribo desde Barboza Caro para recordarte que tu próximo retoque de pestañas está programado para el *${fechaLeg}*.\n\nAgrega el recordatorio a tu calendario con este enlace:\n${gcalUrl}\n\n¡Te esperamos! 🌟`;
+  const waUrl = `https://wa.me/?text=${encodeURIComponent(msgWA)}`;
+
+  // ── Actualizar modal ──────────────────────────
+  document.getElementById('rec-subtitulo').textContent    = `Para: ${clientaNom} · ${fechaLeg}`;
+  document.getElementById('rec-preview-texto').textContent = `Hola 💕 Te escribo desde Barboza Caro para recordarte que tu próximo retoque está programado para el ${fechaLeg}. Agrega el recordatorio a tu calendario con el enlace que te comparto.`;
+  document.getElementById('rec-btn-whatsapp').href        = waUrl;
+  document.getElementById('rec-btn-gcal').href            = gcalUrl;
+  document.getElementById('rec-btn-ics').href             = icsUrl;
+  document.getElementById('rec-btn-ics').download         = `retoque-barbozacaro-${fecha}.ics`;
+
+  document.getElementById('modal-recordatorio').classList.add('open');
+}
+
+function cerrarModalRecordatorio() {
+  document.getElementById('modal-recordatorio').classList.remove('open');
+}
+
+// ═══════════════════════════════════════════════
+//  CRITERIO TÉCNICO POR EFECTO
+// ═══════════════════════════════════════════════
+
+const CRITERIO_EFECTO = {
+  'Natural': [
+    '📏 Mínimo 5 longitudes consecutivas (ej: 7→8→9→10→11mm).',
+    '🌿 Lagrimal: 6-7mm · Curvaturas suaves B o C.',
+    '💪 Pestañas gruesas y saludables: máximo 14mm.',
+    '🎯 Grosor recomendado: 0.05-0.07mm. Abanico 2D-4D.',
+  ],
+  'Cat eye': [
+    '📏 Usar 7 longitudes (ej: 7→8→9→10→11→12→13mm).',
+    '🌿 Lagrimal: 6-7mm · Curvaturas B/C en zona interna.',
+    '📐 Pico desplazado hacia la comisura externa.',
+    '💡 Curvaturas CC→D en zona media-comisura para el levante.',
+  ],
+  'Open': [
+    '⚠️ Largo máximo 12mm — si usas 13mm cerrará aún más el ojo.',
+    '📐 Curvaturas fuertes como D: aplicar a 90° (base recta, punta levantada).',
+    '🌿 Lagrimal: 6-7mm · Curvaturas B/C.',
+    '🎯 Pico centrado (no desplazado a comisura). Evitar en eje descendente.',
+  ],
+  'Doll eye': [
+    '📏 Pico centrado sobre la pupila. Baja en lagrimal y comisura.',
+    '🌿 Curvaturas uniformes CC en toda la zona central.',
+    '💡 Ideal en ojos pequeños o rasgados — amplía la apertura.',
+  ],
+  'Fox eye': [
+    '📐 Comisura más larga que el centro. Curvaturas M/LC en zona externa.',
+    '🌿 Lagrimal más corto (6-7mm) con curvatura B/C.',
+    '⚠️ No usar en eje descendente — potencia el efecto caído.',
+    '💡 El efecto "levanta" visualmente la cola del ojo.',
+  ],
+  'Squirrel': [
+    '📏 Pico entre el centro y la comisura (índice 4-5 del arco).',
+    '📐 Crea volumen externo sin alargar demasiado la comisura.',
+    '💡 Buena opción para corregir asimetría con ojo pequeño.',
+  ],
+  'Wet': [
+    '💧 Pestañas agrupadas en "picos" para el efecto mojado total.',
+    '📐 Curvaturas CC/D. Grosor 0.07-0.10mm para mayor presencia.',
+    '🎯 Estilo Wet Set en motor: pico hasta 11mm.',
+    '💡 Se logra con Lash Bonding o adhesivo especial de agrupación.',
+  ],
+  'Húmedo': [
+    '💧 Versión suave del Wet look — agrupaciones leves, más natural.',
+    '📐 Curvaturas CC. Grosor 0.05-0.07mm.',
+    '🎯 Ideal para clientas que quieren textura sin look empapado.',
+    '💡 Combina bien con diseños Open o Natural.',
+  ],
+  'Wet look': [
+    '💧 Pestañas agrupadas en "picos" para el efecto mojado.',
+    '📐 Curvaturas CC/D. Grosor 0.07-0.10mm para mayor presencia.',
+    '🎯 Estilo Wet Set en motor: pico hasta 11mm.',
+    '💡 Se logra con Lash Bonding o adhesivo especial de agrupación.',
+  ],
+  'Foxy': [
+    '🦊 Peso visual en la comisura. Alarga el ojo hacia afuera.',
+    '📐 Curvaturas M o LC en zona externa, C/B en lagrimal.',
+    '⚠️ No usar en eje cantal descendente — potencia el efecto caído.',
+    '💡 El acabado "foxy" es el efecto de acabado; el diseño puede ser Cat o Ardilla.',
+  ],
+  'Ombré': [
+    '🌈 Degradado: raíz oscura → punta clara, o claro → oscuro.',
+    '💡 Usar extensiones bicolor o combinar negras en lagrimal y de color en comisura.',
+    '📏 Longitudes según el diseño base elegido.',
+    '🎯 Tendencia para clientas que quieren personalidad sin volumen extremo.',
+  ],
+  'Wispy': [
+    '🌿 Mezcla longitudes: algunas extensiones individuales más largas (spikes) entre el volumen base.',
+    '📏 Spikes: 1-2mm más que la longitud base de esa zona.',
+    '💡 No sobrepasar 13mm en spikes para evitar peso excesivo.',
+    '🎯 Grosor base 0.05mm + spikes 0.03mm para movimiento natural.',
+  ],
+  'Desordenado': [
+    '🌀 Variación intencional de longitudes y curvaturas por zona.',
+    '📐 Combinar curvaturas adyacentes en la misma zona (ej: C y CC).',
+    '💡 Base de volumen uniforme + puntas en distintas direcciones.',
+    '⚠️ Siempre respetar la escala de curvaturas — solo pasos adyacentes.',
+  ],
+  'Liner': [
+    '✏️ Extensiones muy cortas y uniformes para simular delineador.',
+    '📏 Longitudes: 7-9mm en toda la línea. Sin arco pronunciado.',
+    '🌿 Curvatura C o CC uniforme. Grosor 0.10-0.15mm.',
+    '💡 Ideal como base o servicio exprés. No requiere análisis de visagismo complejo.',
+  ],
+  'Anime': [
+    '🎌 Alto drama. Longitudes 9-14mm. Curvaturas D o CC marcadas.',
+    '📏 Mínimo 6 longitudes (ej: 9→10→11→12→11→10mm).',
+    '⚠️ Verificar densidad folicular — solo para pestañas saludables y abundantes.',
+    '💡 Efecto editorial. No apto para uso cotidiano prolongado.',
+  ],
+  'Kim K': [
+    '💎 Volumen máximo. Abanico 6D-8D. Grosor 0.05-0.07mm.',
+    '📏 Longitudes uniformes de alto impacto: 11-13mm en toda la zona.',
+    '📐 Curvaturas CC o D uniformes para máxima presencia.',
+    '⚠️ Solo para densidad folicular Alta (4-5 capas). Folículo débil = no aplica.',
+  ],
+  'Kylie': [
+    '🐱 Cat eye con volumen máximo. Pico externo marcado.',
+    '📏 7 longitudes. Lagrimal 7mm, comisura hasta 13mm.',
+    '📐 Curvaturas D en comisura, CC en centro, C/B en lagrimal.',
+    '⚠️ No usar en eje cantal descendente — colapso visual garantizado.',
+  ],
+  'Color': [
+    '🎨 Extensiones de color en toda la línea o en zonas puntuales.',
+    '💡 Reglas de longitud y curvatura: igual que el efecto base elegido.',
+    '🌿 Para un toque sutil: color solo en comisura externa.',
+    '📐 Para máximo impacto: color en zona centro-comisura.',
+  ],
+  'Ombre': [
+    '🌈 Degradado: raíz oscura → punta clara, o claro → oscuro.',
+    '💡 Usar extensiones bicolor o combinar negras en lagrimal y de color en comisura.',
+    '📏 Longitudes según el estilo base. El color no altera las reglas de longitud.',
+    '🎯 Tendencia para clientas que quieren personalidad sin volumen extremo.',
+  ],
+  'Personalizado': [
+    '✏️ Diseño libre. Registra tus observaciones en el campo de notas.',
+    '💡 Aplica siempre las reglas de consecutividad (±1mm por zona).',
+    '🌿 Respeta los límites: mínimo 6mm en lagrimal, máximo 14mm en pestañas saludables.',
+  ],
+};
+
+function mostrarCriterioEfecto() {
+  const efecto = document.getElementById('a-efecto').value;
+  const panel  = document.getElementById('criterio-efecto');
+  const tips   = CRITERIO_EFECTO[efecto];
+  if (!tips || tips.length === 0) { panel.style.display = 'none'; return; }
+  panel.innerHTML = `<strong style="color:var(--accent);font-size:11px;letter-spacing:0.05em;text-transform:uppercase">Criterio técnico · ${efecto}</strong><br>${tips.join('<br>')}`;
+  panel.style.display = 'block';
+}
+
+function toggleTecnicaPersonalizado() {
+  const val = document.getElementById('a-tecnica').value;
+  const inp = document.getElementById('a-tecnica-personalizado');
+  if (inp) inp.style.display = val === 'Personalizado' ? '' : 'none';
 }
 
 document.getElementById('modal-overlay').addEventListener('click', function(e) {
@@ -2241,10 +2612,12 @@ function clearForm(module) {
     document.getElementById('a-autoriza').checked = false;
     setFotoPreview('antes', '');
     setFotoPreview('despues', '');
-    ['a-servicio','a-pago','a-dir-lagrimal','a-dir-centro','a-dir-comisura','a-alineacion','a-espacio','a-forma-ojo','a-parpado','a-apertura','a-efecto','a-curvatura','a-grosor','a-tecnica','a-estado-retoque','a-satisfaccion'].forEach(id => {
+    ['a-servicio','a-pago','a-dir-lagrimal','a-dir-centro','a-dir-comisura','a-alineacion','a-espacio','a-forma-ojo','a-parpado','a-apertura','a-diseno','a-efecto','a-curvatura','a-grosor','a-tecnica','a-estado-retoque','a-satisfaccion','a-asimetria-ojo-mayor','a-asimetria-tipo'].forEach(id => {
       const el = document.getElementById(id);
       if (el && el.options.length > 0) el.selectedIndex = 0;
     });
+    const tcP = document.getElementById('a-tecnica-personalizado');
+    if (tcP) { tcP.value = ''; tcP.style.display = 'none'; }
   }
 }
 
@@ -2306,24 +2679,29 @@ function getCitaForm() {
     monto:           document.getElementById('a-monto').value,
     pago:            document.getElementById('a-pago').value,
     ejeCantal:            document.getElementById('a-eje-cantal').value,
-    flowDireccion:        document.getElementById('a-flow-direccion').value,
+    dirLagrimal:          document.getElementById('a-dir-lagrimal').value,
+    dirCentro:            document.getElementById('a-dir-centro').value,
+    dirComisura:          document.getElementById('a-dir-comisura').value,
     tipologiaParpado:     document.getElementById('a-tipologia-parpado').value,
     espacioOrbital:       document.getElementById('a-espacio-orbital').value,
     distanciaInterocular: document.getElementById('a-distancia-interocular').value,
     densidadFolicular:    document.getElementById('a-densidad-folicular').value,
     estiloSolicitado:     document.getElementById('a-estilo-solicitado').value,
     asimetriaActiva:      document.getElementById('a-asimetria-toggle').checked,
+    asimetriaOjoMayor:    document.getElementById('a-asimetria-ojo-mayor') ? document.getElementById('a-asimetria-ojo-mayor').value : 'Iguales',
+    asimetriaTipo:        document.getElementById('a-asimetria-tipo') ? document.getElementById('a-asimetria-tipo').value : 'mismo',
     ejeCantaloD:          document.getElementById('a-eje-cantal-od').value,
     parpadoOD:            document.getElementById('a-parpado-od').value,
     notasIzq:             document.getElementById('a-notas-izq') ? document.getElementById('a-notas-izq').value.trim() : '',
     notasDer:             document.getElementById('a-notas-der') ? document.getElementById('a-notas-der').value.trim() : '',
+    diseno:          document.getElementById('a-diseno').value,
     efecto:          document.getElementById('a-efecto').value,
     curvatura:       document.getElementById('a-curvatura').value,
     largoLagrimal:   document.getElementById('a-largo-lagrimal').value,
     largoCentro:     document.getElementById('a-largo-centro').value,
     largoComisura:   document.getElementById('a-largo-comisura').value,
     grosor:          document.getElementById('a-grosor').value,
-    tecnica:         document.getElementById('a-tecnica').value,
+    tecnica:         (function(){ const sel=document.getElementById('a-tecnica').value; const custom=(document.getElementById('a-tecnica-personalizado')||{}).value||''; return sel==='Personalizado'&&custom.trim()?custom.trim():sel; })(),
     material:        document.getElementById('a-material').value.trim(),
     obsDiseno:       document.getElementById('a-obs-diseno').value.trim(),
     fotoAntes:       document.getElementById('a-foto-antes').value.trim(),
@@ -2344,25 +2722,46 @@ function setCitaForm(a) {
   document.getElementById('a-monto').value           = a.monto           || '';
   document.getElementById('a-pago').value            = a.pago            || 'Efectivo';
   document.getElementById('a-eje-cantal').value             = a.ejeCantal            || 'Neutro';
-  document.getElementById('a-flow-direccion').value         = a.flowDireccion        || '+1';
+  document.getElementById('a-dir-lagrimal').value           = a.dirLagrimal          || 'Arriba';
+  document.getElementById('a-dir-centro').value             = a.dirCentro            || 'Arriba';
+  document.getElementById('a-dir-comisura').value           = a.dirComisura          || 'Arriba';
   document.getElementById('a-tipologia-parpado').value      = a.tipologiaParpado     || 'Móvil Expuesto';
   document.getElementById('a-espacio-orbital').value        = a.espacioOrbital       || 'Medio';
   document.getElementById('a-distancia-interocular').value  = a.distanciaInterocular || 'Proporcionados';
   document.getElementById('a-densidad-folicular').value     = a.densidadFolicular    || 'Media (3-4 capas)';
   document.getElementById('a-estilo-solicitado').value      = a.estiloSolicitado     || 'Comercial Natural';
   document.getElementById('a-asimetria-toggle').checked     = !!a.asimetriaActiva;
+  if (document.getElementById('a-asimetria-ojo-mayor')) document.getElementById('a-asimetria-ojo-mayor').value = a.asimetriaOjoMayor || 'Iguales';
+  if (document.getElementById('a-asimetria-tipo'))      document.getElementById('a-asimetria-tipo').value      = a.asimetriaTipo     || 'mismo';
   document.getElementById('a-eje-cantal-od').value          = a.ejeCantaloD          || 'Neutro';
   document.getElementById('a-parpado-od').value             = a.parpadoOD            || 'Móvil Expuesto';
   toggleAsimetriaPanel();
   if (document.getElementById('a-notas-izq')) document.getElementById('a-notas-izq').value = a.notasIzq || '';
   if (document.getElementById('a-notas-der')) document.getElementById('a-notas-der').value = a.notasDer || '';
-  document.getElementById('a-efecto').value          = a.efecto          || 'Natural';
+  if (document.getElementById('a-diseno')) document.getElementById('a-diseno').value = a.diseno || 'Open';
+  // Restore efecto — map old keys to new values if needed
+  const efectoMap = { 'Natural':'Wet', 'Cat eye':'Wet', 'Doll eye':'Wet', 'Fox eye':'Foxy', 'Squirrel':'Wet', 'Wet look':'Wet', 'Ombre':'Ombré' };
+  const efectoVal = a.efecto || 'Wet';
+  const efectoFinal = (document.getElementById('a-efecto').querySelector(`option[value="${efectoVal}"]`) ? efectoVal : (efectoMap[efectoVal] || 'Wet'));
+  document.getElementById('a-efecto').value = efectoFinal;
+  mostrarCriterioEfecto();
   document.getElementById('a-curvatura').value       = a.curvatura       || 'C';
   document.getElementById('a-largo-lagrimal').value  = a.largoLagrimal   || '';
   document.getElementById('a-largo-centro').value    = a.largoCentro     || '';
   document.getElementById('a-largo-comisura').value  = a.largoComisura   || '';
   document.getElementById('a-grosor').value          = a.grosor          || '0.07';
-  document.getElementById('a-tecnica').value         = a.tecnica         || 'Pelo a pelo';
+  // Restore tecnica — map old values + handle custom text
+  const tecnicaOpts = ['Pelo a pelo','Fibras tecnológicas','Volumen o Mega Volumen','Personalizado'];
+  const tecnicaLegMap = {'Volumen ruso':'Volumen o Mega Volumen','Volumen mega':'Volumen o Mega Volumen','Híbrido':'Personalizado','Wet look':'Pelo a pelo'};
+  const storedTecnica = a.tecnica || 'Pelo a pelo';
+  const mappedTecnica = tecnicaLegMap[storedTecnica] || storedTecnica;
+  if (tecnicaOpts.includes(mappedTecnica)) {
+    document.getElementById('a-tecnica').value = mappedTecnica;
+    if (document.getElementById('a-tecnica-personalizado')) { document.getElementById('a-tecnica-personalizado').value=''; document.getElementById('a-tecnica-personalizado').style.display='none'; }
+  } else {
+    document.getElementById('a-tecnica').value = 'Personalizado';
+    if (document.getElementById('a-tecnica-personalizado')) { document.getElementById('a-tecnica-personalizado').value=storedTecnica; document.getElementById('a-tecnica-personalizado').style.display=''; }
+  }
   document.getElementById('a-material').value        = a.material        || '';
   document.getElementById('a-obs-diseno').value      = a.obsDiseno       || '';
   setFotoPreview('antes',   a.fotoAntes   || '');
@@ -2439,7 +2838,8 @@ function renderCitasTable() {
         (a.clienta||'').toLowerCase().includes(query) ||
         (a.servicio||'').toLowerCase().includes(query) ||
         (a.tecnica||'').toLowerCase().includes(query) ||
-        (a.efecto||'').toLowerCase().includes(query))
+        (a.efecto||'').toLowerCase().includes(query) ||
+        (a.diseno||'').toLowerCase().includes(query))
     : data;
 
   document.getElementById('count-citas').textContent = data.length;
@@ -2470,7 +2870,7 @@ function renderCitasTable() {
       <td class="muted">${fmtDateTime(a.fecha)}</td>
       <td class="muted">${a.servicio || '—'}</td>
       <td class="muted">${a.tecnica || '—'}</td>
-      <td class="muted">${a.efecto || '—'}</td>
+      <td class="muted">${a.diseno || '—'} · ${a.efecto || '—'}</td>
       <td class="muted">${fmtMonto(a.monto)}</td>
       <td class="muted">${fmtDate(a.proxRetoque)}</td>
       <td><span class="status-badge ${estadoBadge[a.estadoRetoque] || 'badge-inactive'}">${a.estadoRetoque || '—'}</span></td>
@@ -2491,13 +2891,58 @@ function renderCitasTable() {
 //  Arquitectura de la Mirada · Reglas de Criterio
 // ═══════════════════════════════════════════════
 
+// ── ESCALA DE CURVATURAS ÉLITE ─────────────────────────────────
+// Orden estricto de menor a mayor curvatura (solo transiciones adyacentes)
+const CURV_SCALE = ['J','B','C','CC','D','LC','M','L','LJ','LB'];
+const CURV_DESC = {
+  'J':  'Suave mínima',
+  'B':  'Suave intermedia',
+  'C':  'Suave y natural',
+  'CC': 'Rizada redonda y uniforme',
+  'D':  'Fuerte y notoria',
+  'LC': 'Ideal párpado caído/encapuchado',
+  'M':  'Recta o descendente (foxy)',
+  'L':  'Para pestaña que crece hacia abajo',
+  'LJ': 'Descendente variante J',
+  'LB': 'Descendente variante B'
+};
+
+// Mueve una curvatura n pasos en la escala (+ = más rizada, - = menos)
+function curvStep(base, steps) {
+  const idx = CURV_SCALE.indexOf(base);
+  if (idx === -1) return base;
+  return CURV_SCALE[Math.max(0, Math.min(CURV_SCALE.length - 1, idx + steps))];
+}
+
+// Garantiza curvatura adyacente entre dos zonas (máximo 1 paso)
+function curvBridge(from, to) {
+  const i = CURV_SCALE.indexOf(from);
+  const j = CURV_SCALE.indexOf(to);
+  if (i === -1 || j === -1) return to;
+  const diff = j - i;
+  if (Math.abs(diff) <= 1) return to;
+  return CURV_SCALE[i + Math.sign(diff)]; // paso intermedio
+}
+
+// Repara secuencia de longitudes para que sea estrictamente ±1mm por paso
+function _forzarConsecutiva(seq) {
+  const s = [...seq];
+  const peak = s.indexOf(Math.max(...s));
+  // Desde el pico hacia la izquierda: cada valor = siguiente - 1
+  for (let i = peak - 1; i >= 0; i--) s[i] = s[i + 1] - 1;
+  // Desde el pico hacia la derecha: cada valor = anterior - 1
+  for (let i = peak + 1; i < s.length; i++) s[i] = s[i - 1] - 1;
+  return s;
+}
+
 const MOTOR_ELITE = {
 
   // ── 1. RESTRICCIONES DURAS (se ejecutan primero) ──────────────
   restricciones: {
 
-    colapsoVisual(ejeCantal, flow) {
-      if (ejeCantal === 'Descendente' && (flow === '-1' || flow === '-2')) {
+    colapsoVisual(ejeCantal, dirCentro, dirComisura) {
+      const flowNeg = (dirCentro === 'Abajo' || dirComisura === 'Abajo');
+      if (ejeCantal === 'Descendente' && flowNeg) {
         return {
           activa: true,
           curvasProhibidas: ['D','DD','U'],
@@ -2552,22 +2997,29 @@ const MOTOR_ELITE = {
   calculos: {
 
     curvaturasPorZona(inp, rC, rE, rO) {
-      // Base por flow
-      const flowMap = { '-2':'L', '-1':'D', '0':'CC', '+1':'C' };
-      let base = flowMap[inp.flowDireccion] || 'CC';
-      if (rE.activa) base = 'L';
+      // Base por dirección de cada zona (solo curvaturas de la escala CURV_SCALE)
+      const dirMap = { 'Abajo':'D', 'Recto':'CC', 'Arriba':'C' };
+      let lagrimal  = dirMap[inp.dirLagrimal]  || 'CC';
+      let centro    = dirMap[inp.dirCentro]    || 'CC';
+      let comisura  = dirMap[inp.dirComisura]  || 'CC';
 
-      let lagrimal  = inp.distanciaInterocular === 'Juntos' ? 'B' : 'C';
-      let centro    = base;
-      let transicion= base;
-      let comisura  = inp.ejeCantal === 'Ascendente' ? 'CC' : base;
+      // Override por encapotado (prioridad alta — párpado caído/encapuchado)
+      if (rE.activa) { lagrimal='L'; centro='LC'; comisura='M'; }
 
-      if (rC.activa) { comisura = 'M'; transicion = 'LC'; }
-      if (rO.activa) { comisura = 'M'; centro = 'L'; }
-      if (inp.tipologiaParpado === 'Monólido') { lagrimal='L'; centro='LC'; comisura='L'; }
-      if (inp.tipologiaParpado === 'Laxitud Edad') { comisura='CC'; centro='CC'; }
+      // Ajuste por distancia interocular en lagrimal
+      if (inp.distanciaInterocular === 'Juntos') lagrimal = 'B';
 
-      return { lagrimal, centro, transicion, comisura };
+      // Restricciones duras
+      if (rC.activa) { comisura = 'M'; }      // colapso visual → comisura recta
+      if (rO.activa) { centro = 'LC'; comisura = 'M'; }  // orbital estrecho → proyección frontal
+      if (inp.tipologiaParpado === 'Monólido') { lagrimal='L'; centro='LC'; comisura='M'; }
+      if (inp.tipologiaParpado === 'Laxitud Edad') { comisura='CC'; centro='C'; }
+
+      // REGLA ÉLITE: Zona de transición debe ser adyacente entre lagrimal y comisura
+      // (garantiza que no haya salto de más de 1 paso en la escala entre zonas)
+      const transicion = curvBridge(lagrimal, comisura);
+
+      return { lagrimal, transicion, centro, comisura };
     },
 
     lashLayering(densidad, estilo, curvaturas, rO) {
@@ -2597,6 +3049,74 @@ const MOTOR_ELITE = {
       };
     },
 
+    mapeoAsimetrico(zonifBase, asimetriaTipo, ojoMayor) {
+      const base = [...zonifBase.seq];
+
+      if (!ojoMayor || ojoMayor === 'Iguales') {
+        return { activo: false,
+          od: { seq: base, texto: base.join('–')+'mm', etiqueta:'OD', nota:'' },
+          oi: { seq: base, texto: base.join('–')+'mm', etiqueta:'OI', nota:'' } };
+      }
+
+      if (asimetriaTipo === 'mismo') {
+        // REGLA: mismo diseño → ojo mayor usa el pico reducido en 1mm y se reconstruye
+        // (no se resta 1 a cada zona porque el lagrimal no puede bajar de 7mm)
+        const peakIdx  = base.indexOf(Math.max(...base));
+        const newPeak  = Math.max(8, Math.max(...base) - 1);  // pico del ojo mayor (mín 8mm)
+
+        // Reconstruir secuencia consecutiva desde el nuevo pico
+        const seqMayor = new Array(base.length);
+        seqMayor[peakIdx] = newPeak;
+        for (let i = peakIdx - 1; i >= 0; i--)             seqMayor[i] = Math.max(7, seqMayor[i+1] - 1);
+        for (let i = peakIdx + 1; i < base.length; i++)    seqMayor[i] = Math.max(7, seqMayor[i-1] - 1);
+
+        const seqMenor  = base;
+        const dataMenor = { seq: seqMenor, texto: seqMenor.join('–')+'mm', etiqueta: ojoMayor==='OD'?'OI':'OD', nota:'Diseño base · ojo menor' };
+        const dataMayor = { seq: seqMayor, texto: seqMayor.join('–')+'mm', etiqueta: ojoMayor,                   nota:`Pico −1mm (${Math.max(...base)}→${newPeak}mm) · ojo mayor` };
+        return {
+          activo: true, ojoMayor, tipo: 'mismo',
+          od: ojoMayor==='OD' ? dataMayor : dataMenor,
+          oi: ojoMayor==='OI' ? dataMayor : dataMenor
+        };
+      }
+
+      if (asimetriaTipo === 'diferente') {
+        // REGLA: diseños independientes → mismas longitudes, distinto efecto
+        // Ojo pequeño → Open (pico desplazado hacia comisura)
+        // Ojo grande  → Ardilla (pico centrado)
+        const maxMm   = Math.max(...base);
+        const peakIdx = base.indexOf(maxMm);
+
+        // Open: mover el pico un paso hacia la comisura
+        const openSeq = [...base];
+        if (peakIdx < base.length - 2) {
+          openSeq[peakIdx]     = maxMm - 1;
+          openSeq[peakIdx + 1] = maxMm;
+        }
+        const openFinal = _forzarConsecutiva(openSeq.map(v => Math.max(7, v)));
+
+        // Ardilla: mover el pico un paso hacia el centro
+        const ardillaSeq = [...base];
+        if (peakIdx > 1) {
+          ardillaSeq[peakIdx]     = maxMm - 1;
+          ardillaSeq[peakIdx - 1] = maxMm;
+        }
+        const ardillaFinal = _forzarConsecutiva(ardillaSeq.map(v => Math.max(7, v)));
+
+        const dataPequeño = { seq: openFinal,    texto: openFinal.join('–')+'mm',    etiqueta: ojoMayor==='OD'?'OI':'OD', nota:'Open — pico hacia comisura (ojo pequeño)' };
+        const dataMayor   = { seq: ardillaFinal, texto: ardillaFinal.join('–')+'mm', etiqueta: ojoMayor,                   nota:'Ardilla — pico centrado (ojo grande)' };
+        return {
+          activo: true, ojoMayor, tipo: 'diferente',
+          od: ojoMayor==='OD' ? dataMayor : dataPequeño,
+          oi: ojoMayor==='OI' ? dataMayor : dataPequeño
+        };
+      }
+
+      return { activo: false,
+        od: { seq: base, texto: base.join('–')+'mm', etiqueta:'OD', nota:'' },
+        oi: { seq: base, texto: base.join('–')+'mm', etiqueta:'OI', nota:'' } };
+    },
+
     weightBalance(densidad, tipologia, estilo) {
       if (tipologia === 'Laxitud Edad') {
         return { grosor:'0.03 – 0.05', tipoFibra:'Cónica ultra-fina o Flat', dimensionAbanico:'Abanico 2D-3D (peso mínimo — folículo débil)' };
@@ -2609,33 +3129,50 @@ const MOTOR_ELITE = {
       return map[densidad] || map['Media (3-4 capas)'];
     },
 
-    anguloAcople(flow, tipologia) {
-      if (flow === '-2') return 'Envolvente — acople bajo redirige el pelo hacia arriba';
-      if (flow === '-1') return 'Inferior — compensar dirección descendente natural';
-      if (flow === '0')  return 'Lateral — pelo horizontal, acople neutro sin alterar dirección';
-      if (flow === '+1') return 'Superior — reforzar curvatura natural ascendente';
+    anguloAcople(dirCentro, tipologia) {
+      if (dirCentro === 'Abajo') return 'Inferior — compensar dirección descendente natural del pelo';
+      if (dirCentro === 'Recto') return 'Lateral — pelo horizontal, acople neutro sin alterar dirección';
+      if (dirCentro === 'Arriba') return 'Superior — reforzar curvatura natural ascendente';
       if (tipologia === 'Monólido') return 'Inferior — separar del párpado sin pliegue visible';
       return 'Superior estándar';
     },
 
     zonificacionLongitudes(inp, rO, rC, estilo) {
-      const seq = {
-        'Comercial Natural':  [9,10,11,11,10,9],
-        'Wet Set':            [9,10,12,12,11,10],
-        'Efecto Lifting':     [8,10,12,13,11,9],
-        'Wispy Estructurado': [9,10,12,13,12,10],
-        'Anime/Manga':        [9,11,13,14,13,11],
-        'Editorial':          [9,11,13,14,12,10]
+      // REGLA ÉLITE: Secuencias estrictamente consecutivas (±1mm por paso)
+      // Índices: [lagrimal · lag-cent · centro · cent-com · comisura · ext-comisura]
+      // Lagrimal siempre parte de 7mm — comisura máx 10mm en conservadores
+      const seqBase = {
+        'Comercial Natural':  [7, 8,  9, 10,  9,  8],  // pico 10 — comisura natural
+        'Wet Set':            [8, 9, 10, 11, 10,  9],  // pico 11 — efecto húmedo
+        'Efecto Lifting':     [8, 9, 10, 11, 12, 11],  // pico 12 — lifting ascendente
+        'Wispy Estructurado': [8, 9, 10, 11, 10,  9],  // pico 11 — puntas sueltas
+        'Anime/Manga':        [9,10, 11, 12, 11, 10],  // pico 12 — drama suave
+        'Editorial':          [9,10, 11, 12, 11, 10]   // pico 12 — alto impacto
       };
-      let s = [...(seq[estilo] || [9,10,11,12,11,10])];
+      let s = [...(seqBase[estilo] || [8, 9, 10, 11, 10, 9])];
 
-      if (inp.ejeCantal === 'Descendente') { s[4]+=1; s[5]+=1; }
-      if (inp.ejeCantal === 'Ascendente')  { s[4]-=1; s[5]-=1; }
-      if (inp.distanciaInterocular === 'Juntos')    { s[0]-=1; s[1]-=1; s[4]+=1; s[5]+=1; }
-      if (inp.distanciaInterocular === 'Separados') { s[0]+=1; s[1]+=1; s[4]-=1; s[5]-=1; }
+      // Ajuste por eje cantal: desplazar el pico ±1 y luego reparar
+      if (inp.ejeCantal === 'Descendente') { s[3] += 1; }
+      if (inp.ejeCantal === 'Ascendente')  { s[3] -= 1; }
+
+      // Ajuste por distancia interocular en zona lagrimal
+      if (inp.distanciaInterocular === 'Juntos')    { s[0] -= 1; s[1] -= 1; }
+      if (inp.distanciaInterocular === 'Separados') { s[0] += 1; s[1] += 1; }
+
+      // Restricciones duras de longitud máxima
       if (rO.activa) s = s.map(v => Math.min(v, rO.longitudMaxima));
-      if (rC.activa) { s[4]=Math.max(s[4]-2,s[2]-2); s[5]=Math.max(s[5]-2,s[2]-2); }
-      s = s.map(v => Math.max(7, Math.min(16, v)));
+      if (rC.activa) { s[3] = Math.min(s[3], s[2] + 1); }
+
+      // FORZAR CONSECUTIVIDAD: garantiza exactamente ±1mm entre zonas adyacentes
+      s = _forzarConsecutiva(s);
+
+      // Límites absolutos: mínimo 7mm, máximo según estilo
+      const maxMm = ['Anime/Manga','Editorial','Efecto Lifting'].includes(estilo) ? 13 : 11;
+      s = s.map(v => Math.max(7, Math.min(maxMm, v)));
+
+      // Segunda reparación tras capping
+      s = _forzarConsecutiva(s);
+
       return { seq: s, texto: s.join('–') + 'mm' };
     }
   },
@@ -2680,13 +3217,16 @@ const MOTOR_ELITE = {
     },
 
     analisisCritico(inp) {
-      let txt = `Eje cantal ${inp.ejeCantal} · Flow ${inp.flowDireccion} · Párpado ${inp.tipologiaParpado} · Espacio orbital ${inp.espacioOrbital} · Distancia interocular ${inp.distanciaInterocular} · Densidad folicular ${inp.densidadFolicular}.`;
+      let txt = `Alineación del eje: ${inp.ejeCantal} · Dirección pestañas — Lagrimal: ${inp.dirLagrimal} · Centro: ${inp.dirCentro} · Comisura: ${inp.dirComisura} · Párpado: ${inp.tipologiaParpado} · Espacio orbital: ${inp.espacioOrbital} · Distancia interocular: ${inp.distanciaInterocular} · Densidad folicular: ${inp.densidadFolicular}.`;
       const alertas = [];
-      if (inp.ejeCantal==='Descendente'&&(inp.flowDireccion==='-1'||inp.flowDireccion==='-2'))
-        alertas.push('RIESGO CRÍTICO: Eje descendente + flow negativo → colapso visual en canto externo. Protocolo de Contraste Óptico activado.');
-      if (inp.tipologiaParpado==='Encapotado Total')
+      const flowNeg = inp.dirCentro === 'Abajo' || inp.dirComisura === 'Abajo';
+      if (inp.ejeCantal === 'Descendente' && flowNeg)
+        alertas.push('RIESGO CRÍTICO: Eje descendente + pestañas con dirección hacia abajo → colapso visual en canto externo. Protocolo de Contraste Óptico activado.');
+      if (inp.dirComisura === 'Abajo' && inp.ejeCantal !== 'Descendente')
+        alertas.push('Comisura con dirección descendente: curvatura D o L obligatoria en sector externo para compensar caída.');
+      if (inp.tipologiaParpado === 'Encapotado Total')
         alertas.push('Párpado encapotado total: alta probabilidad de fricción cutánea con curvas C/CC estándar.');
-      if (inp.densidadFolicular==='Baja (2-3 capas)')
+      if (inp.densidadFolicular === 'Baja (2-3 capas)')
         alertas.push('Densidad folicular baja: Weight Balance reducido. Fibras ultra-finas obligatorias.');
       return { base: txt, alertas };
     },
@@ -2727,17 +3267,21 @@ function toggleAsimetriaPanel() {
 function analizarVisagismo() {
   const inp = {
     ejeCantal:            document.getElementById('a-eje-cantal').value,
-    flowDireccion:        document.getElementById('a-flow-direccion').value,
+    dirLagrimal:          document.getElementById('a-dir-lagrimal').value,
+    dirCentro:            document.getElementById('a-dir-centro').value,
+    dirComisura:          document.getElementById('a-dir-comisura').value,
     tipologiaParpado:     document.getElementById('a-tipologia-parpado').value,
     espacioOrbital:       document.getElementById('a-espacio-orbital').value,
     distanciaInterocular: document.getElementById('a-distancia-interocular').value,
     densidadFolicular:    document.getElementById('a-densidad-folicular').value,
     estiloSolicitado:     document.getElementById('a-estilo-solicitado').value,
-    asimetriaActiva:      document.getElementById('a-asimetria-toggle').checked
+    asimetriaActiva:      document.getElementById('a-asimetria-toggle').checked,
+    asimetriaOjoMayor:    document.getElementById('a-asimetria-ojo-mayor') ? document.getElementById('a-asimetria-ojo-mayor').value : 'Iguales',
+    asimetriaTipo:        document.getElementById('a-asimetria-tipo') ? document.getElementById('a-asimetria-tipo').value : 'mismo'
   };
 
   // Restricciones duras
-  const rC = MOTOR_ELITE.restricciones.colapsoVisual(inp.ejeCantal, inp.flowDireccion);
+  const rC = MOTOR_ELITE.restricciones.colapsoVisual(inp.ejeCantal, inp.dirCentro, inp.dirComisura);
   const rE = MOTOR_ELITE.restricciones.proteccionEncapotado(inp.tipologiaParpado);
   const rO = MOTOR_ELITE.restricciones.orbitalEstrecho(inp.espacioOrbital);
   const rA = inp.asimetriaActiva
@@ -2751,8 +3295,14 @@ function analizarVisagismo() {
   const curvaturas   = MOTOR_ELITE.calculos.curvaturasPorZona(inp, rC, rE, rO);
   const layering     = MOTOR_ELITE.calculos.lashLayering(inp.densidadFolicular, inp.estiloSolicitado, curvaturas, rO);
   const weightBal    = MOTOR_ELITE.calculos.weightBalance(inp.densidadFolicular, inp.tipologiaParpado, inp.estiloSolicitado);
-  const angulo       = MOTOR_ELITE.calculos.anguloAcople(inp.flowDireccion, inp.tipologiaParpado);
+  const angulo       = MOTOR_ELITE.calculos.anguloAcople(inp.dirCentro, inp.tipologiaParpado);
   const zonif        = MOTOR_ELITE.calculos.zonificacionLongitudes(inp, rO, rC, inp.estiloSolicitado);
+
+  // Mapeo asimétrico OD / OI
+  const mapeoAsi = inp.asimetriaActiva
+    ? MOTOR_ELITE.calculos.mapeoAsimetrico(zonif, inp.asimetriaTipo, inp.asimetriaOjoMayor)
+    : { activo: false, od: { seq: zonif.seq, texto: zonif.texto, etiqueta:'OD', nota:'' },
+                       oi: { seq: zonif.seq, texto: zonif.texto, etiqueta:'OI', nota:'' } };
 
   // Nomenclatura
   const nombre       = MOTOR_ELITE.nomenclatura.nombreDiseno(inp, rC, rE);
@@ -2763,7 +3313,7 @@ function analizarVisagismo() {
 
   const reporte = {
     inp, nombre, tendencia, justif, analisis, advertencias,
-    curvaturas, layering, weightBal, angulo, zonif, rC, rE, rO, rA
+    curvaturas, layering, weightBal, angulo, zonif, mapeoAsi, rC, rE, rO, rA
   };
 
   _renderReporteElite(reporte);
@@ -2771,18 +3321,22 @@ function analizarVisagismo() {
   document.getElementById('resultado-visagismo').scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
-function _renderReporteElite(r) {
-  const { inp, nombre, tendencia, justif, analisis, advertencias,
-          curvaturas, layering, weightBal, angulo, zonif, rC, rE, rO, rA } = r;
-
-  // Mapa visual SVG barras
+// Genera el HTML del arco de barras a partir de una secuencia de mm
+function _barrasArco(seq) {
   const MAX_H = 52;
-  const allMm = zonif.seq;
-  const maxMm = Math.max(...allMm);
-  const mapaBarras = allMm.map(mm => {
-    const h = Math.round((mm/maxMm)*MAX_H);
+  const maxMm = Math.max(...seq);
+  return seq.map(mm => {
+    const h = Math.round((mm / maxMm) * MAX_H);
     return `<div class="elite-mapa-pin"><div class="elite-mapa-bar" style="height:${h}px"></div><div class="elite-mapa-mm">${mm}</div></div>`;
   }).join('');
+}
+
+function _renderReporteElite(r) {
+  const { inp, nombre, tendencia, justif, analisis, advertencias,
+          curvaturas, layering, weightBal, angulo, zonif, mapeoAsi, rC, rE, rO, rA } = r;
+
+  // Mapa visual barras (base — se usa cuando asimetría está inactiva)
+  const mapaBarras = _barrasArco(zonif.seq);
 
   // Alertas críticas
   const alertasHTML = analisis.alertas.map(a =>
@@ -2860,18 +3414,42 @@ function _renderReporteElite(r) {
             <div class="elite-grid">
               <div class="elite-item full">
                 <div class="elite-item-label">Zonificación de Longitudes (lagrimal → comisura)</div>
-                <div class="elite-item-value gold">${zonif.texto}</div>
+                <div class="elite-item-value gold">${mapeoAsi && mapeoAsi.activo ? 'OD: '+mapeoAsi.od.texto+' · OI: '+mapeoAsi.oi.texto : zonif.texto}</div>
               </div>
             </div>
+            ${mapeoAsi && mapeoAsi.activo ? `
+            <!-- MAPAS ASIMÉTRICOS OD / OI -->
+            <div style="background:var(--bg3);border-radius:var(--radius);padding:14px 10px;margin:2px 0">
+              <div class="elite-item-label" style="text-align:center;margin-bottom:12px">Corrección de Asimetría · Mapas Independientes OD / OI</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                <div style="background:var(--bg2);border-radius:var(--radius);padding:10px 8px;border:1px solid var(--border)">
+                  <div style="text-align:center;font-size:10px;font-weight:700;letter-spacing:0.08em;color:var(--accent);margin-bottom:6px;text-transform:uppercase">OD — Ojo Derecho</div>
+                  <div class="elite-mapa-seq" style="justify-content:center">${_barrasArco(mapeoAsi.od.seq)}</div>
+                  <div style="text-align:center;font-size:11px;color:var(--text2);margin-top:6px;font-weight:600">${mapeoAsi.od.texto}</div>
+                  ${mapeoAsi.od.nota ? `<div style="text-align:center;font-size:10px;color:var(--text3);margin-top:3px">${mapeoAsi.od.nota}</div>` : ''}
+                </div>
+                <div style="background:var(--bg2);border-radius:var(--radius);padding:10px 8px;border:1px solid var(--border)">
+                  <div style="text-align:center;font-size:10px;font-weight:700;letter-spacing:0.08em;color:var(--accent);margin-bottom:6px;text-transform:uppercase">OI — Ojo Izquierdo</div>
+                  <div class="elite-mapa-seq" style="justify-content:center">${_barrasArco(mapeoAsi.oi.seq)}</div>
+                  <div style="text-align:center;font-size:11px;color:var(--text2);margin-top:6px;font-weight:600">${mapeoAsi.oi.texto}</div>
+                  ${mapeoAsi.oi.nota ? `<div style="text-align:center;font-size:10px;color:var(--text3);margin-top:3px">${mapeoAsi.oi.nota}</div>` : ''}
+                </div>
+              </div>
+              <div style="text-align:center;font-size:10px;color:var(--warning);margin-top:10px;font-weight:600">
+                ★ Protocolo: ${mapeoAsi.tipo==='mismo' ? 'Mismo diseño · ojo mayor con −1mm por zona' : 'Diseños independientes · Open (ojo menor) + Ardilla (ojo mayor)'}
+              </div>
+            </div>
+            ` : `
             <div style="background:var(--bg3);border-radius:var(--radius);padding:14px 10px;margin:2px 0">
               <div class="elite-item-label" style="text-align:center;margin-bottom:10px">Mapa Visual · Punto de Transición Dinámica</div>
               <div class="elite-mapa-seq">${mapaBarras}</div>
             </div>
+            `}
             <div class="elite-grid cols-3">
-              <div class="elite-item"><div class="elite-item-label">Zona Lagrimal</div><div class="elite-item-value">Curva ${curvaturas.lagrimal}</div></div>
-              <div class="elite-item"><div class="elite-item-label">Zona Centro</div><div class="elite-item-value">Curva ${curvaturas.centro}</div></div>
-              <div class="elite-item"><div class="elite-item-label">Zona Transición</div><div class="elite-item-value gold">Curva ${curvaturas.transicion}</div></div>
-              <div class="elite-item full"><div class="elite-item-label">Zona Comisura Externa</div><div class="elite-item-value gold">Curva ${curvaturas.comisura}${rC.activa?' ← Contraste Óptico':''}</div></div>
+              <div class="elite-item"><div class="elite-item-label">Zona Lagrimal</div><div class="elite-item-value">Curva ${curvaturas.lagrimal} <span style="font-weight:400;color:var(--text3);font-size:11px">· ${CURV_DESC[curvaturas.lagrimal]||''}</span></div></div>
+              <div class="elite-item"><div class="elite-item-label">Zona Centro</div><div class="elite-item-value">Curva ${curvaturas.centro} <span style="font-weight:400;color:var(--text3);font-size:11px">· ${CURV_DESC[curvaturas.centro]||''}</span></div></div>
+              <div class="elite-item"><div class="elite-item-label">Zona Transición</div><div class="elite-item-value gold">Curva ${curvaturas.transicion} <span style="font-weight:400;color:var(--text3);font-size:11px">· ${CURV_DESC[curvaturas.transicion]||''}</span></div></div>
+              <div class="elite-item full"><div class="elite-item-label">Zona Comisura Externa</div><div class="elite-item-value gold">Curva ${curvaturas.comisura} <span style="font-weight:400;color:var(--text3);font-size:11px">· ${CURV_DESC[curvaturas.comisura]||''}${rC.activa?' — Contraste Óptico activado':''}</span></div></div>
             </div>
             <div class="elite-layering">
               <div class="elite-item-label" style="padding-left:2px">Estrategia Lash Layering por Capas</div>
@@ -2964,11 +3542,24 @@ function _aplicarDisenoElite(r) {
   const densBaja = r.inp.densidadFolicular === 'Baja (2-3 capas)';
   const esWet    = r.inp.estiloSolicitado  === 'Wet Set';
   const esAnime  = r.inp.estiloSolicitado  === 'Anime/Manga';
-  let tecnica = 'Volumen ruso';
-  if (densBaja)  tecnica = 'Pelo a pelo';
-  if (esWet)     tecnica = 'Wet look';
-  if (esAnime)   tecnica = 'Volumen mega';
+  let tecnica = 'Volumen o Mega Volumen';
+  if (densBaja) tecnica = 'Pelo a pelo';
+  if (esWet)    tecnica = 'Fibras tecnológicas';
+  if (esAnime)  tecnica = 'Volumen o Mega Volumen';
   document.getElementById('a-tecnica').value = tecnica;
+  toggleTecnicaPersonalizado();
+
+  // Diseño (mapa) según estilo solicitado
+  const disenoPorEstilo = {
+    'Comercial Natural':  'Natural',
+    'Wet Set':            'Open',
+    'Efecto Lifting':     'Open',
+    'Wispy Estructurado': 'Natural',
+    'Anime/Manga':        'Open',
+    'Editorial':          'Cat',
+  };
+  const disenoSugerido = disenoPorEstilo[r.inp.estiloSolicitado] || 'Natural';
+  if (document.getElementById('a-diseno')) document.getElementById('a-diseno').value = disenoSugerido;
 
   document.getElementById('a-efecto').closest('.form-grid')
     .scrollIntoView({ behavior:'smooth', block:'start' });
@@ -3215,6 +3806,10 @@ function renderAlertas() {
           <span class="alerta-info-val">${cita.tecnica || '—'}</span>
         </div>
         <div class="alerta-info-row">
+          <span class="alerta-info-key">🗺️ Diseño</span>
+          <span class="alerta-info-val">${cita.diseno || '—'}</span>
+        </div>
+        <div class="alerta-info-row">
           <span class="alerta-info-key">✨ Efecto</span>
           <span class="alerta-info-val">${cita.efecto || '—'}</span>
         </div>
@@ -3253,10 +3848,10 @@ const CSV_HEADERS_CLIENTAS = [
 
 const CSV_HEADERS_CITAS = [
   'ID Cita','Clienta','Fecha Cita','Tipo de Servicio','Monto Cobrado','Método de Pago',
-  'Eje Cantal','Flow de Pestañas','Tipología Párpado','Espacio Orbital','Distancia Interocular',
+  'Alineación del Eje','Dir. Lagrimal','Dir. Centro','Dir. Comisura','Tipología Párpado','Espacio Orbital','Distancia Interocular',
   'Densidad Folicular','Estilo Solicitado','Asimetría OD/OI','Eje Cantal OD','Párpado OD',
   'Notas OI','Notas OD',
-  'Efecto / Mapa','Curvatura','Largo Lagrimal (mm)','Largo Centro (mm)','Largo Comisura (mm)',
+  'Diseño (Mapa)','Efecto / Acabado','Curvatura','Largo Lagrimal (mm)','Largo Centro (mm)','Largo Comisura (mm)',
   'Grosor / Volumen','Técnica Aplicada','Material / Marca','Observaciones Diseño',
   'Foto Antes','Foto Después','Autoriza Publicación',
   'Próximo Retoque','Estado Retoque','Satisfacción Clienta','Creada En'
@@ -3273,11 +3868,11 @@ function clientaToRow(c) {
 function citaToRow(a) {
   return [
     a.citaId, a.clienta, a.fecha, a.servicio, a.monto, a.pago,
-    a.ejeCantal, a.flowDireccion, a.tipologiaParpado, a.espacioOrbital, a.distanciaInterocular,
+    a.ejeCantal, a.dirLagrimal, a.dirCentro, a.dirComisura, a.tipologiaParpado, a.espacioOrbital, a.distanciaInterocular,
     a.densidadFolicular, a.estiloSolicitado,
     a.asimetriaActiva ? 'Sí' : 'No', a.ejeCantaloD, a.parpadoOD,
     a.notasIzq, a.notasDer,
-    a.efecto, a.curvatura, a.largoLagrimal, a.largoCentro, a.largoComisura,
+    a.diseno, a.efecto, a.curvatura, a.largoLagrimal, a.largoCentro, a.largoComisura,
     a.grosor, a.tecnica, a.material, a.obsDiseno,
     a.fotoAntes ? '[foto]' : '', a.fotoDespues ? '[foto]' : '',
     a.autorizaPublic ? 'Sí' : 'No',
